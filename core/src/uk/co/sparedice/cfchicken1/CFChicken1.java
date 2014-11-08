@@ -22,6 +22,8 @@ public class CFChicken1 extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		batch.draw(img, 0, 0);
+                // Test change
+                batch.draw(img, 200, 200);
 		batch.end();
 	}
 }
