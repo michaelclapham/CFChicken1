@@ -59,7 +59,7 @@ public class PlayRenderer {
 			
 		shapeRenderer.end();
 		
-		world.render(batch);
+		world.render(batch, shapeRenderer);
 		gui.render(batch);
 	}
 	
