@@ -64,7 +64,6 @@ public class Chicken {
 		yLoc += speedY * delta;
                 
                 animCounter += delta;
-                System.out.println("Anim:" + animCounter);
                 if(animCounter > animStep){
                     animCounter = 0;
                     progressAnim();
