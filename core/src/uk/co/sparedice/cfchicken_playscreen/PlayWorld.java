@@ -13,6 +13,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class PlayWorld {
 
+	public static int WORLD_CEILING = 300;
+	
 	private Chicken chicken;
 	private ArrayList<Platform> platforms;
 	
@@ -63,11 +65,19 @@ public class PlayWorld {
 			}
 		}
 		
+		// Collision with the floor
 		if (chicken.getY() < 0)
 		{
 			chicken.setY(0);
 			chicken.setSpeedY(0);
 			chicken.setFalling(false);
+		}
+		
+		// Collision with the ceiling
+		if (chicken.getY() > 300 - chicken.HEIGHT)
+		{
+			chicken.setY(300 - chicken.HEIGHT);
+			chicken.setSpeedY(0);
 		}
 	}
 	
