@@ -1,5 +1,6 @@
 package uk.co.sparedice.cfchicken_playscreen;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 
@@ -20,8 +21,6 @@ public class PlayScreen implements Screen, InputProcessor {
 	
 	@Override
 	public void render(float delta) {
-
-		//System.out.println("Screen Rendering");
 		
 		// Update everything
 		world.update(delta);
@@ -35,7 +34,8 @@ public class PlayScreen implements Screen, InputProcessor {
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
+		
+		renderer.resize();
 		
 	}
 
@@ -73,8 +73,10 @@ public class PlayScreen implements Screen, InputProcessor {
 	
 	@Override
 	public boolean keyDown(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
+
+		world.keyDown(keycode);
+		
+		return true;
 	}
 
 	@Override

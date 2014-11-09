@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class PlayRenderer {
 
@@ -17,7 +17,7 @@ public class PlayRenderer {
 	private ShapeRenderer shapeRenderer;
 	
 	private OrthographicCamera cam;
-	private StretchViewport viewport;
+	private FitViewport viewport;
 	
 	// Takes the world and GUI the renderer is to render
 	public PlayRenderer(PlayWorld world, PlayGUI gui)
@@ -26,8 +26,8 @@ public class PlayRenderer {
 		this.gui = gui;
 		
 		cam = new OrthographicCamera();
-		cam.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		viewport = new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), cam);
+		cam.setToOrtho(false, 400, 300);
+		viewport = new FitViewport(400, 300, cam);
 		
 		batch = new SpriteBatch();
 		batch.setProjectionMatrix(cam.combined);
@@ -37,8 +37,27 @@ public class PlayRenderer {
 	
 	public void render()
 	{
-		Gdx.gl.glClearColor(0f, 0f, 0f, 1);
+		cam.position.set(world.getChicken().getX(), world.getChicken().getY(), 0);
+		cam.update();
+		batch.setProjectionMatrix(cam.combined);
+		shapeRenderer.setProjectionMatrix(cam.combined);
+		
+		Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		shapeRenderer.begin(ShapeType.Filled);
+		
+			shapeRenderer.setColor(0.5f, 0.5f, 0.5f, 1f);
+			shapeRenderer.rect(cam.position.x - (viewport.getWorldWidth() / 2), 0, 400, 300);
+		
+			shapeRenderer.setColor(0.3f, 0.3f, 0.3f, 1f);
+			float left = cam.position.x - (viewport.getWorldWidth() / 2) - ((cam.position.x - (viewport.getWorldWidth() / 2)) % 150);
+			for (int i = 0; i < 5; i++)
+			{
+				shapeRenderer.rect(left + (i * 150), 0, 75, 300);
+			}
+			
+		shapeRenderer.end();
 		
 		world.render(batch);
 		gui.render(batch);
@@ -47,10 +66,10 @@ public class PlayRenderer {
 	public void resize()
 	{
 		cam = new OrthographicCamera();
-		cam.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		cam.setToOrtho(false, 400, 300);
 		batch.setProjectionMatrix(cam.combined);
 		shapeRenderer.setProjectionMatrix(cam.combined);
+		viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
 	
 }
