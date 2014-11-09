@@ -24,6 +24,10 @@ public class Chicken {
 	private boolean isFalling;
 	private boolean isDiving;
 	private boolean isJumping;
+        
+        private float animCounter = 0;
+        private float animStep = 0.15f;
+        private int animFrame = 0;
 	
 	public Chicken(int x, int y)
 	{
@@ -40,7 +44,7 @@ public class Chicken {
 	{
 		batch.begin();
 			// Draw the chicken where xLoc and yLoc refer to the centre of the chicken image's base
-			batch.draw(AssetLoader.chicken, xLoc - (WIDTH / 2), yLoc, WIDTH, HEIGHT);
+			batch.draw(AssetLoader.chicken_anim_running1[animFrame], xLoc - (WIDTH / 2), yLoc, WIDTH, HEIGHT);
 		batch.end();
 	}
 	
@@ -58,6 +62,13 @@ public class Chicken {
 		
 		xLoc += speedX * delta;
 		yLoc += speedY * delta;
+                
+                animCounter += delta;
+                System.out.println("Anim:" + animCounter);
+                if(animCounter > animStep){
+                    animCounter = 0;
+                    progressAnim();
+                }
 	}
 	
 	public void jump()
@@ -127,6 +138,13 @@ public class Chicken {
 	public void setSpeedY(float speedY) {
 		this.speedY = speedY;
 	}
+
+    private void progressAnim() {
+        animFrame += 1;
+        if(animFrame > 9){
+            animFrame = 0;
+        }
+    }
 	
 	
 }
