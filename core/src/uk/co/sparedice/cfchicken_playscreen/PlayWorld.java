@@ -27,7 +27,7 @@ public class PlayWorld {
 		
 		for (int i = 0; i < 50; i++)
 		{
-			platforms.add(new Platform(i * 200, rnd.nextInt(250), 200));
+			platforms.add(new Platform(i * 200, rnd.nextInt(230) + 20, 200));
 		}
 	}
 	

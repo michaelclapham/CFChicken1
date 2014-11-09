@@ -1,5 +1,7 @@
 package uk.co.sparedice.cfchicken_playscreen;
 
+import uk.co.sparedice.cfchicken1.AssetLoader;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -58,6 +60,14 @@ public class PlayRenderer {
 			}
 			
 		shapeRenderer.end();
+		
+		batch.begin();
+			left = cam.position.x - (viewport.getWorldWidth() / 2) - ((cam.position.x - (viewport.getWorldWidth() / 2)) % 400);
+			batch.draw(AssetLoader.floor, left, -300, 400, 300);
+			batch.draw(AssetLoader.floor, left + 400, -300, 400, 300);
+			batch.draw(AssetLoader.ceiling, left, 300, 400, 300);
+			batch.draw(AssetLoader.ceiling, left + 400, 300, 400, 300);
+		batch.end();
 		
 		world.render(batch, shapeRenderer);
 		gui.render(batch);

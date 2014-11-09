@@ -1,6 +1,9 @@
 package uk.co.sparedice.cfchicken_playscreen;
 
+import uk.co.sparedice.cfchicken1.AssetLoader;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
@@ -22,10 +25,9 @@ public class Platform {
 	
 	public void render(SpriteBatch batch, ShapeRenderer renderer)
 	{
-		renderer.begin(ShapeType.Filled);
-			renderer.setColor(0.2f, 0.2f, 0.2f, 1f);
-			renderer.rect(x, y - HEIGHT, length, HEIGHT);
-		renderer.end();
+		batch.begin();
+			batch.draw(new TextureRegion(AssetLoader.platform, (int) length, 20), x, y - HEIGHT, length, HEIGHT); 
+		batch.end();
 	}
 
 	public float getX() {
