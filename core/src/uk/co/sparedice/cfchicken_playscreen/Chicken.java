@@ -14,16 +14,25 @@ public class Chicken {
 	public static final float DIVE_SPEED = 600; // The addition on gravity when the dive button is held
 	public static final float RUN_SPEED = 200;
 	
+	public static final int STARTING_HEALTH = 1;
+	public static final float DAMAGE_COOLDOWN = 2; // the time before the chicken can take more damage
+	
 	// The location of the chicken is the centre of its base
 	private float xLoc;
 	private float yLoc;
 	
+	private int health;
+	private boolean invuln; // whether the chicken is invulnerable (probably from just taking damage)
+	private float invulnTime; // Time that the chicken has been invulnerable for
+	
 	private float speedX;
 	private float speedY;
 	
-	private boolean isFalling;
-	private boolean isDiving;
-	private boolean isJumping;
+	private boolean falling;
+	private boolean diving;
+	private boolean jumping;
+	
+	private boolean alive;
         
         private float animCounter = 0;
         private float animStep = 0.15f;
@@ -34,8 +43,9 @@ public class Chicken {
 		xLoc = x;
 		yLoc = y;
 		
-		isFalling = true;
-		isDiving = false;
+		falling = true;
+		diving = false;
+		alive = true;
 		
 		speedX = RUN_SPEED;
 	}
@@ -44,67 +54,101 @@ public class Chicken {
 	{
 		batch.begin();
 			// Draw the chicken where xLoc and yLoc refer to the centre of the chicken image's base
-			batch.draw(AssetLoader.chicken_anim_running1[animFrame], xLoc - (WIDTH / 2), yLoc, WIDTH, HEIGHT);
+			if (alive)
+				batch.draw(AssetLoader.chicken_anim_running1[animFrame], xLoc - (WIDTH / 2), yLoc, WIDTH, HEIGHT);
+			else
+				batch.draw(AssetLoader.chicken, xLoc - (WIDTH / 2), yLoc, WIDTH, HEIGHT);
 		batch.end();
 	}
 	
 	public void update(float delta)
 	{
-		if (isDiving)
+		if (invuln)
+		{
+			invulnTime += delta;
+			if (invulnTime > DAMAGE_COOLDOWN)
+			{
+				invuln = false;
+				invulnTime = 0;
+			}
+			System.out.println("Invulnerable");
+		}
+		
+		if (diving)
 			speedY -= (FALL_ACCEL + DIVE_SPEED) * delta;
-		else if (isJumping)
+		else if (jumping)
 			speedY -= (FALL_ACCEL - JUMP_SPEED) * delta;
 		else
 			speedY -= FALL_ACCEL * delta;
 
 		
-		isFalling = true;
+		falling = true;
 		
 		xLoc += speedX * delta;
 		yLoc += speedY * delta;
                 
-                animCounter += delta;
-                System.out.println("Anim:" + animCounter);
-                if(animCounter > animStep){
-                    animCounter = 0;
-                    progressAnim();
-                }
+        animCounter += delta;
+        //System.out.println("Anim:" + animCounter);
+        if(animCounter > animStep){
+            animCounter = 0;
+            progressAnim();
+        }
 	}
 	
 	public void jump()
 	{
-		if (!isFalling)
+		if (!falling)
 			speedY = 600;
+	}
+	
+	public void damage(int amount)
+	{
+		health -= amount;
+		if (health <= 0)
+			die();
+		else
+			invuln = true; // so more damage isn't taken instantly from the same source
+	}
+	
+	public void die()
+	{
+		speedX = -200;
+		alive = false;
 	}
 	
 	public void setFalling(boolean falling)
 	{
-		isFalling = falling;
+		this.falling = falling;
 	}
 	
 	public boolean isFalling()
 	{
-		return isFalling;
+		return falling;
 	}
 	
 	public void setDiving(boolean diving)
 	{
-		isDiving = diving;
+		this.diving = diving;
 	}
 	
 	public boolean isDiving()
 	{
-		return isDiving;
+		return diving;
 	}
 	
 	public void setJumping(boolean jumping)
 	{
-		isJumping = jumping;
+		this.jumping = jumping;
 	}
 	
 	public boolean isJumping()
 	{
-		return isJumping;
+		return jumping;
+	}
+	
+	public boolean isAlive()
+	{
+		return alive;
 	}
 	
 	public float getX() {
@@ -139,6 +183,16 @@ public class Chicken {
 		this.speedY = speedY;
 	}
 
+	public void setHealth(int health)
+	{
+		this.health = health;
+	}
+	
+	public int getHealth()
+	{
+		return health;
+	}
+	
     private void progressAnim() {
         animFrame += 1;
         if(animFrame > 9){

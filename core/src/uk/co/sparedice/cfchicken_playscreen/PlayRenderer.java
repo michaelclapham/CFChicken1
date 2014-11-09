@@ -39,8 +39,12 @@ public class PlayRenderer {
 	
 	public void render()
 	{
-		cam.position.set(world.getChicken().getX(), world.getChicken().getY(), 0);
-		cam.update();
+		if (world.getChicken().isAlive())
+		{
+			cam.position.set(world.getChicken().getX(), world.getChicken().getY(), 0);
+			cam.update();
+		}
+		
 		batch.setProjectionMatrix(cam.combined);
 		shapeRenderer.setProjectionMatrix(cam.combined);
 		

@@ -47,38 +47,42 @@ public class PlayWorld {
 		else
 			chicken.setJumping(false);
 		
-		System.out.println("isDiving " + chicken.isDiving());
+		//System.out.println("isDiving " + chicken.isDiving());
 		
 		float chickenY = chicken.getY();
 		chicken.update(delta);
 		float newChickenY = chicken.getY();
 		
-		for (Platform platform : platforms)
+		if (chicken.isAlive()) // only collide if the chicken is alive
 		{
-			if (!chicken.isDiving() // if the chicken is not trying to fall through platforms...
-				&& chicken.getX() > platform.getX() && chicken.getX() < platform.getX() + platform.getLength() // AND if the chicken is over or under the platform...
-				&& chickenY >= platform.getY() && newChickenY < platform.getY()) // AND if the chicken would have just passed fell through the platform 
+			for (Platform platform : platforms)
 			{
-				chicken.setY(platform.getY());
+				if (!chicken.isDiving() // if the chicken is not trying to fall through platforms...
+					&& chicken.getX() > platform.getX() && chicken.getX() < platform.getX() + platform.getLength() // AND if the chicken is over or under the platform...
+					&& chickenY >= platform.getY() && newChickenY < platform.getY()) // AND if the chicken would have just passed fell through the platform 
+				{
+					chicken.setY(platform.getY());
+					chicken.setSpeedY(0);
+					chicken.setFalling(false);
+				}
+			}
+			
+			// Collision with the floor
+			if (chicken.getY() < 0)
+			{
+				chicken.setY(0);
 				chicken.setSpeedY(0);
 				chicken.setFalling(false);
 			}
+			
+			// Collision with the ceiling
+			if (chicken.getY() > 300 - chicken.HEIGHT)
+			{
+				chicken.setY(300 - chicken.HEIGHT);
+				chicken.setSpeedY(0);
+			}
 		}
 		
-		// Collision with the floor
-		if (chicken.getY() < 0)
-		{
-			chicken.setY(0);
-			chicken.setSpeedY(0);
-			chicken.setFalling(false);
-		}
-		
-		// Collision with the ceiling
-		if (chicken.getY() > 300 - chicken.HEIGHT)
-		{
-			chicken.setY(300 - chicken.HEIGHT);
-			chicken.setSpeedY(0);
-		}
 	}
 	
 	public void render(SpriteBatch batch, ShapeRenderer renderer)
@@ -95,9 +99,10 @@ public class PlayWorld {
 	{
 		switch (keycode)
 		{
-		case Input.Keys.SPACE: chicken.jump();
-		case Input.Keys.UP: chicken.jump();
-		case Input.Keys.DOWN: chicken.setDiving(true);
+		case Input.Keys.SPACE: if (chicken.isAlive()) chicken.jump(); break;
+		case Input.Keys.UP: if (chicken.isAlive()) chicken.jump(); break;
+		case Input.Keys.DOWN: if (chicken.isAlive()) chicken.setDiving(true); break;
+		case Input.Keys.A: if (chicken.isAlive()) chicken.damage(1); break; // temporary for testing
 		}
 	}
 	
