@@ -39,7 +39,7 @@ public class PlayRenderer {
 	
 	public void render()
 	{
-		if (world.getChicken().isAlive())
+		if (world.isCamFollowingChicken())
 		{
 			cam.position.set(world.getChicken().getX(), world.getChicken().getY(), 0);
 			cam.update();
@@ -71,6 +71,13 @@ public class PlayRenderer {
 			batch.draw(AssetLoader.floor, left + 400, -300, 400, 300);
 			batch.draw(AssetLoader.ceiling, left, 300, 400, 300);
 			batch.draw(AssetLoader.ceiling, left + 400, 300, 400, 300);
+			
+			if (cam.position.x >= world.getWorldLength() - 200)
+			{
+				batch.draw(AssetLoader.blackGradient, world.getWorldLength(), 300, 200, 300);
+				batch.draw(AssetLoader.blackGradient, world.getWorldLength(), 0, 200, 300);
+				batch.draw(AssetLoader.blackGradient, world.getWorldLength(), -300, 200, 300);
+			}
 		batch.end();
 		
 		world.render(batch, shapeRenderer);
@@ -84,6 +91,11 @@ public class PlayRenderer {
 		batch.setProjectionMatrix(cam.combined);
 		shapeRenderer.setProjectionMatrix(cam.combined);
 		viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+	}
+
+	public void linkWorld(PlayWorld world) {
+		this.world = world;
+		
 	}
 	
 }

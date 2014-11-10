@@ -16,11 +16,7 @@ public class AssetLoader {
 	public static TextureRegion floor;
 	public static TextureRegion ceiling;
 	public static Texture platform;
-	public static TextureRegion platform400;
-	public static TextureRegion platform300;
-	public static TextureRegion platform200;
-	public static TextureRegion platform100;
-	public static TextureRegion platform50;
+	public static Texture blackGradient;
 	
 	// Called at the start of program execution
 	public static void load()
@@ -40,6 +36,7 @@ public class AssetLoader {
 		ceiling = new TextureRegion(floorTexture);
 		ceiling.flip(false, true);
 		platform = new Texture(Gdx.files.internal("images/Platform.png"));
+		blackGradient = new Texture(Gdx.files.internal("images/BlackGradient.png"));
 	}
 	
 	// Any texture that is created should be disposed of here
@@ -47,6 +44,9 @@ public class AssetLoader {
 	{
 		badlogicLogo.dispose();
 		chicken.dispose();
+		floorTexture.dispose();
+		platform.dispose();
+		blackGradient.dispose();
 	}
 	
 }

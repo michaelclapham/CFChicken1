@@ -15,22 +15,53 @@ public class PlayWorld {
 
 	public static int WORLD_CEILING = 300;
 	
+	private ICFCWorldContainer container;
+	
 	private Chicken chicken;
 	private ArrayList<Platform> platforms;
 	
-	private int lastPlatform;
+	private int worldLength;
 	
-	public PlayWorld()
+	private boolean levelWon; // if the level has been won or not
+	private boolean camFollowChicken;
+	
+	private int score;
+	
+	public PlayWorld(ICFCWorldContainer container, int length)
 	{
+		this.container = container;
+		initWorld(length);
+	}
+	
+	public PlayWorld(ICFCWorldContainer container, int length, int score)
+	{
+		this.container = container;
+		this.score = score;
+		initWorld(length);
+	}
+	
+	public void initWorld(int length)
+	{
+		worldLength = length;
+		levelWon = false;
+		camFollowChicken = true;
+		
+		score = 0;
+		
 		chicken = new Chicken(300, 200);
 		platforms = new ArrayList<Platform>();
 		
 		Random rnd = new Random();
 		
-		for (int i = 0; i < 50; i++)
+		int lastPlatformEnd = 0;
+		while (lastPlatformEnd < worldLength)
 		{
-			platforms.add(new Platform(i * 200, rnd.nextInt(230) + 20, 200));
-		}
+			int thisLength = rnd.nextInt(200) + 100;
+			if (lastPlatformEnd + thisLength > worldLength) // ensure the platforms do not go past the edge of the world
+				thisLength = worldLength - lastPlatformEnd;
+			platforms.add(new Platform(lastPlatformEnd, rnd.nextInt(230) + 20, thisLength));
+			lastPlatformEnd += thisLength;	
+		}	
 	}
 	
 	public void update(float delta)
@@ -53,8 +84,9 @@ public class PlayWorld {
 		chicken.update(delta);
 		float newChickenY = chicken.getY();
 		
-		if (chicken.isAlive()) // only collide if the chicken is alive
+		if (chicken.isAlive()) // only collide or win if the chicken is alive
 		{
+			/* --------- Collisions ----------- */
 			for (Platform platform : platforms)
 			{
 				if (!chicken.isDiving() // if the chicken is not trying to fall through platforms...
@@ -81,6 +113,17 @@ public class PlayWorld {
 				chicken.setY(300 - chicken.HEIGHT);
 				chicken.setSpeedY(0);
 			}
+			
+			/* --------- Other ---------- */
+			if (chicken.getX() > worldLength) // the chicken has passed the finish line...
+			{
+				levelWon = true;
+				camFollowChicken = false;
+			}
+		}
+		else // the chicken is dead
+		{
+			camFollowChicken = false;
 		}
 		
 	}
@@ -97,18 +140,36 @@ public class PlayWorld {
 	
 	public void keyDown(int keycode)
 	{
-		switch (keycode)
+		if (levelWon)
 		{
-		case Input.Keys.SPACE: if (chicken.isAlive()) chicken.jump(); break;
-		case Input.Keys.UP: if (chicken.isAlive()) chicken.jump(); break;
-		case Input.Keys.DOWN: if (chicken.isAlive()) chicken.setDiving(true); break;
-		case Input.Keys.A: if (chicken.isAlive()) chicken.damage(1); break; // temporary for testing
+			System.out.println("Sending nextLevel message");
+			container.nextLevel(score); // start the next level, passing out the score
+		}
+		else
+		{
+			switch (keycode)
+			{
+			case Input.Keys.SPACE: if (chicken.isAlive()) chicken.jump(); break;
+			case Input.Keys.UP: if (chicken.isAlive()) chicken.jump(); break;
+			case Input.Keys.DOWN: if (chicken.isAlive()) chicken.setDiving(true); break;
+			case Input.Keys.A: if (chicken.isAlive()) chicken.damage(1); break; // temporary for testing
+			}
 		}
 	}
 	
 	public Chicken getChicken()
 	{
 		return chicken;
+	}
+	
+	public boolean isCamFollowingChicken()
+	{
+		return camFollowChicken;
+	}
+	
+	public int getWorldLength()
+	{
+		return worldLength;
 	}
 	
 }

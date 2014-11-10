@@ -4,7 +4,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 
-public class PlayScreen implements Screen, InputProcessor {
+public class PlayScreen implements Screen, InputProcessor, ICFCWorldContainer {
 
 	private PlayWorld world;
 	private PlayGUI gui;
@@ -12,11 +12,19 @@ public class PlayScreen implements Screen, InputProcessor {
 	
 	public PlayScreen()
 	{
-		world = new PlayWorld();
+		world = new PlayWorld((ICFCWorldContainer) this, 2000); // pass in the length of the level
 		gui = new PlayGUI();
 		renderer = new PlayRenderer(world, gui);
 	}
 
+	/*---------------------- World Container Methods ---------------------*/
+	
+	public void nextLevel(int score)
+	{
+		world = new PlayWorld((ICFCWorldContainer) this, 2000, score);
+		renderer.linkWorld(world);
+	}
+	
 	/*---------------------- Screen Methods -----------------------*/
 	
 	@Override
