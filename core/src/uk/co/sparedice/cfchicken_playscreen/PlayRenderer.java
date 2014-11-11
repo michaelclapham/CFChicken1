@@ -87,7 +87,7 @@ public class PlayRenderer {
 			}
 		batch.end();
 		
-		gui.render(batch);
+		gui.render(batch, cam.position.x - (WORLD_WIDTH / 2), cam.position.y - (WORLD_HEIGHT / 2));
 	}
 	
 	public void resize()

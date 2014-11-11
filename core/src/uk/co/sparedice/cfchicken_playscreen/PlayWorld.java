@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public class PlayWorld {
+public class PlayWorld implements IScorer {
 
 	public static int WORLD_CEILING = 300;
 	
@@ -76,7 +76,7 @@ public class PlayWorld {
 				int randLength = thisLength - Cage.SIZE;
 				if (randLength < 1)
 					randLength = 1;
-				genObjectsList.add(new Cage(rnd.nextInt(randLength) + lastPlatformEnd, thisPlatformHeight, isBomb));
+				genObjectsList.add(new Cage((IScorer) this, rnd.nextInt(randLength) + lastPlatformEnd, thisPlatformHeight, isBomb));
 			}
 			
 			lastPlatformEnd += thisLength;	
@@ -206,6 +206,16 @@ public class PlayWorld {
 	public int getWorldLength()
 	{
 		return worldLength;
+	}
+
+	@Override
+	public void increaseScore(int amount) {
+		score += amount;
+	}
+	
+	public int getScore()
+	{
+		return score;
 	}
 	
 }

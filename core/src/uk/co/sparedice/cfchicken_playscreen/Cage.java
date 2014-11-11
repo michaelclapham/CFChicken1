@@ -11,6 +11,8 @@ public class Cage implements GenObj {
 
 	public static final int SIZE = 50;
 	
+	private IScorer scorer;
+	
 	private float x;
 	private float y;
 	private boolean isBomb;
@@ -21,8 +23,10 @@ public class Cage implements GenObj {
     private float birdAngle = 0;
     private float birdSpeed = 6;
 	
-	public Cage(float x, float y, boolean isBomb)
+	public Cage(IScorer scorer, float x, float y, boolean isBomb)
 	{
+		this.scorer = scorer;
+		
 		this.x = x;
 		this.y = y;
         birdX = x;
@@ -107,6 +111,7 @@ public class Cage implements GenObj {
                 birdX = x;
                 birdY = y;
                 birdAngle = (float) (Math.random()*360);
+                scorer.increaseScore(50);
             }
             isBroken = true;
             System.out.println("CACAW!!!! I'M FREE!!!");

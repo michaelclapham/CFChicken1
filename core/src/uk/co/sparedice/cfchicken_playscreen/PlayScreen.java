@@ -13,7 +13,7 @@ public class PlayScreen implements Screen, InputProcessor, ICFCWorldContainer {
 	public PlayScreen()
 	{
 		world = new PlayWorld((ICFCWorldContainer) this, 2000); // pass in the length of the level
-		gui = new PlayGUI();
+		gui = new PlayGUI(world);
 		renderer = new PlayRenderer(world, gui);
 	}
 
@@ -23,6 +23,7 @@ public class PlayScreen implements Screen, InputProcessor, ICFCWorldContainer {
 	{
 		world = new PlayWorld((ICFCWorldContainer) this, 2000, score);
 		renderer.linkWorld(world);
+		gui.linkWorld(world);
 	}
 	
 	/*---------------------- Screen Methods -----------------------*/
