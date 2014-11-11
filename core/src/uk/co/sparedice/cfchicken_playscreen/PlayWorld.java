@@ -53,11 +53,11 @@ public class PlayWorld {
 		chicken = new Chicken(300, 200);
 		platforms = new ArrayList<Platform>();
                 
-                genObjectsList = new ArrayList<GenObj>();
+        genObjectsList = new ArrayList<GenObj>();
                 
-                for(int i = 0; i < 20; i++){
-                    genObjectsList.add(new Sawblade(200 + (i*200), (int) (50 + Math.random()*100)));
-                }
+        for(int i = 0; i < 6; i++){
+            genObjectsList.add(new Sawblade(600 + (i*400), (int) (50 + Math.random()*150)));
+        }
 		
 		Random rnd = new Random();
 		
