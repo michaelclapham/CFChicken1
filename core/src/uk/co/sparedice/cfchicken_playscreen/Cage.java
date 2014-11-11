@@ -1,5 +1,6 @@
 package uk.co.sparedice.cfchicken_playscreen;
 
+import com.badlogic.gdx.graphics.Color;
 import uk.co.sparedice.cfchicken1.AssetLoader;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,11 +15,18 @@ public class Cage implements GenObj {
 	private float y;
 	private boolean isBomb;
 	private boolean isBroken;
+    
+    private float birdX;
+    private float birdY;
+    private float birdAngle = 0;
+    private float birdSpeed = 6;
 	
 	public Cage(float x, float y, boolean isBomb)
 	{
 		this.x = x;
 		this.y = y;
+        birdX = x;
+        birdY = y;
 		this.isBomb = isBomb;
 		isBroken = false;
 	}
@@ -33,6 +41,12 @@ public class Cage implements GenObj {
 			else
 				batch.draw(AssetLoader.cage_chick, x, y, SIZE, SIZE);
 		batch.end();
+        
+        renderer.begin(ShapeRenderer.ShapeType.Filled);
+            if(isBroken)
+                renderer.setColor(Color.YELLOW);
+                renderer.circle(birdX, birdY, 20);
+        renderer.end();
 	}
 	
 	public void breakCage()
@@ -71,7 +85,10 @@ public class Cage implements GenObj {
 
     @Override
     public void update(float delta) {
-        //
+        if(isBroken && !isBomb){
+            birdX += birdSpeed * Math.sin(Math.toRadians(birdAngle));
+            birdY += birdSpeed * Math.cos(Math.toRadians(birdAngle));
+        }
     }
 
     @Override
@@ -86,8 +103,12 @@ public class Cage implements GenObj {
                 c.die();
             } else {
                 // @TODO: RELEASE THE BIRDS!!!!
+                birdX = x;
+                birdY = y;
+                birdAngle = (float) (Math.random()*360);
             }
             isBroken = true;
+            System.out.println("CACAW!!!! I'M FREE!!!");
         }
     }
 
