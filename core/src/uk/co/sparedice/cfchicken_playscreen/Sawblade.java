@@ -25,7 +25,7 @@ public class Sawblade implements GenObj {
     
     private int type = TYPE_PLATFORM;
     
-    private float killPadding = 0.99f;
+    private float killPadding = 0.2f;
     
 	public Sawblade(int x, int y)
 	{
@@ -78,8 +78,8 @@ public class Sawblade implements GenObj {
     public Rectangle getWorldCollisionRectangle() {
         return new Rectangle(x - (SAWBLADE_RADIUS*(1-killPadding)),
                 y - (SAWBLADE_RADIUS*(1-killPadding)),
-                SAWBLADE_RADIUS*(2-killPadding),
-                SAWBLADE_RADIUS*(2-killPadding));
+                SAWBLADE_RADIUS*(1-killPadding) * 2,
+                SAWBLADE_RADIUS*(1-killPadding) * 2);
     }
 
     @Override
