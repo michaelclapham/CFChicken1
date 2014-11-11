@@ -74,16 +74,19 @@ public class PlayRenderer {
 			batch.draw(AssetLoader.floor, left + WORLD_WIDTH, -WORLD_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT);
 			batch.draw(AssetLoader.ceiling, left, WORLD_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT);
 			batch.draw(AssetLoader.ceiling, left + WORLD_WIDTH, WORLD_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT);
-			
-			if (cam.position.x >= world.getWorldLength() - 200)
-			{
-				batch.draw(AssetLoader.blackGradient, world.getWorldLength(), WORLD_HEIGHT, 200, WORLD_HEIGHT);
-				batch.draw(AssetLoader.blackGradient, world.getWorldLength(), 0, 200, WORLD_HEIGHT);
-				batch.draw(AssetLoader.blackGradient, world.getWorldLength(), -WORLD_HEIGHT, 200, WORLD_HEIGHT);
-			}
 		batch.end();
 		
 		world.render(batch, shapeRenderer);
+		
+		batch.begin();
+			if (cam.position.x >= world.getWorldLength() - 200)
+			{
+				batch.draw(AssetLoader.blackGradient, world.getWorldLength(), WORLD_HEIGHT, WORLD_WIDTH / 2, WORLD_HEIGHT);
+				batch.draw(AssetLoader.blackGradient, world.getWorldLength(), 0, WORLD_WIDTH / 2, WORLD_HEIGHT);
+				batch.draw(AssetLoader.blackGradient, world.getWorldLength(), -WORLD_HEIGHT, WORLD_WIDTH / 2, WORLD_HEIGHT);
+			}
+		batch.end();
+		
 		gui.render(batch);
 	}
 	

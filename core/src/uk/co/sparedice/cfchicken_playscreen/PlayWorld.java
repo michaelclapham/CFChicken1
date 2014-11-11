@@ -74,7 +74,7 @@ public class PlayWorld {
 			
 			if (rnd.nextInt(5) == 1) // place a cage on this platform
 			{
-				boolean isBomb = (rnd.nextInt(1) == 1);
+				boolean isBomb = (rnd.nextInt(2) == 1);
 				cages.add(new Cage(rnd.nextInt(thisLength - Cage.SIZE) + lastPlatformEnd, thisPlatformHeight, isBomb));
 			}
 			
@@ -177,6 +177,10 @@ public class PlayWorld {
 		{
 			System.out.println("Sending nextLevel message");
 			container.nextLevel(score); // start the next level, passing out the score
+		}
+		else if (!chicken.isAlive())
+		{
+			
 		}
 		else
 		{
