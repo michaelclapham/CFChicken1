@@ -46,12 +46,11 @@ public class Cage implements GenObj {
 				batch.draw(AssetLoader.cage_chick, x, y, SIZE, SIZE);
 		batch.end();
         
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
+        batch.begin();
             if(isBroken && !isBomb){
-                renderer.setColor(Color.YELLOW);
-                renderer.circle(birdX, birdY, 20);
+            	batch.draw(AssetLoader.chick, birdX, birdY, 40, 40);
             }
-        renderer.end();
+        batch.end();
 	}
 	
 	public void breakCage()

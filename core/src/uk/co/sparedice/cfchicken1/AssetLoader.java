@@ -10,6 +10,8 @@ public class AssetLoader {
 	
 	public static Texture chicken;
 	public static Texture chicken_kicking;
+	
+	public static Texture chick;
         
         public static Texture[] chicken_anim_running1;
 	
@@ -32,6 +34,8 @@ public class AssetLoader {
 		badlogicLogo = new Texture(Gdx.files.internal("badlogic.jpg"));
 		chicken = new Texture(Gdx.files.internal("images/CF_Chicken1-02.png"));
 		chicken_kicking = new Texture(Gdx.files.internal("images/CF_Chicken1-02-Kicking.png"));
+		
+		chick = new Texture(Gdx.files.internal("images/Chick.png"));
                 
                 // Chicken runing animation 1
                 chicken_anim_running1 = new Texture[10];
@@ -65,12 +69,15 @@ public class AssetLoader {
 		badlogicLogo.dispose();
 		chicken.dispose();
 		chicken_kicking.dispose();
+		chick.dispose();
 		floorTexture.dispose();
 		platform.dispose();
 		blackGradient.dispose();
 		cage_chick.dispose();
 		cage_bomb.dispose();
 		cage_broken.dispose();
+		sawblade1.dispose();
+		sawblade1_plank.dispose();
 	}
 	
 }
