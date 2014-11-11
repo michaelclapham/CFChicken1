@@ -9,10 +9,11 @@ public class PlayScreen implements Screen, InputProcessor, ICFCWorldContainer {
 	private PlayWorld world;
 	private PlayGUI gui;
 	private PlayRenderer renderer;
+    private int worldLength = 6000;
 	
 	public PlayScreen()
 	{
-		world = new PlayWorld((ICFCWorldContainer) this, 2000); // pass in the length of the level
+		world = new PlayWorld((ICFCWorldContainer) this, worldLength); // pass in the length of the level
 		gui = new PlayGUI(world);
 		renderer = new PlayRenderer(world, gui);
 	}
@@ -21,7 +22,7 @@ public class PlayScreen implements Screen, InputProcessor, ICFCWorldContainer {
 	
 	public void nextLevel(int score)
 	{
-		world = new PlayWorld((ICFCWorldContainer) this, 2000, score);
+		world = new PlayWorld((ICFCWorldContainer) this, worldLength, score);
 		renderer.linkWorld(world);
 		gui.linkWorld(world);
 	}
