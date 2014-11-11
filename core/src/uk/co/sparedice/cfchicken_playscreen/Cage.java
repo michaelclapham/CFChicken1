@@ -87,6 +87,7 @@ public class Cage implements GenObj {
             } else {
                 // @TODO: RELEASE THE BIRDS!!!!
             }
+            isBroken = true;
         }
     }
 
