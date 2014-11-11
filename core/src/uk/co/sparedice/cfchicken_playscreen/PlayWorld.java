@@ -32,6 +32,7 @@ public class PlayWorld implements IScorer {
 	public PlayWorld(ICFCWorldContainer container, int length)
 	{
 		this.container = container;
+		score = 0;
 		initWorld(length);
 	}
 	
@@ -47,8 +48,6 @@ public class PlayWorld implements IScorer {
 		worldLength = length;
 		levelWon = false;
 		camFollowChicken = true;
-		
-		score = 0;
 		
 		chicken = new Chicken(300, 200);
 		platforms = new ArrayList<Platform>();
