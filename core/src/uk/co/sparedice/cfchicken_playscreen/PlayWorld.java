@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public class PlayWorld implements IScorer {
+public class PlayWorld implements IScorer, ControlActionListener {
 
 	public static int WORLD_CEILING = 300;
 	
@@ -45,6 +45,7 @@ public class PlayWorld implements IScorer {
 	
 	public void initWorld(int length)
 	{
+        ACC.addActionListener(this);
 		worldLength = length;
 		levelWon = false;
 		camFollowChicken = true;
@@ -153,7 +154,9 @@ public class PlayWorld implements IScorer {
 			camFollowChicken = false;
 		}
         
-        score += 2 * delta;
+        if(chicken.isAlive() && !levelWon){
+            score += 2 * delta;
+        }
 		
 	}
 	
@@ -186,10 +189,10 @@ public class PlayWorld implements IScorer {
 		{
 			switch (keycode)
 			{
-			case Input.Keys.SPACE: if (chicken.isAlive()) chicken.jump(); break;
-			case Input.Keys.UP: if (chicken.isAlive()) chicken.jump(); break;
-			case Input.Keys.DOWN: if (chicken.isAlive()) chicken.setDiving(true); break;
-			case Input.Keys.A: if (chicken.isAlive()) chicken.kick(); break;
+			case Input.Keys.SPACE: ACC.broadcastAction("jump"); break;
+			case Input.Keys.UP: ACC.broadcastAction("jump"); break;
+			case Input.Keys.DOWN: ACC.broadcastAction("dive"); break;
+			case Input.Keys.A: ACC.broadcastAction("kick"); break;
 			}
 		}
 	}
@@ -218,5 +221,18 @@ public class PlayWorld implements IScorer {
 	{
 		return (int) score;
 	}
+
+    @Override
+    public void onAction(String actionName) {
+        if(actionName == "jump"){
+            if (chicken.isAlive()) chicken.jump();
+        }
+        if(actionName == "dive"){
+            if (chicken.isAlive()) chicken.setDiving(true);
+        }
+        if(actionName == "kick"){
+            if (chicken.isAlive()) chicken.kick();
+        }
+    }
 	
 }
