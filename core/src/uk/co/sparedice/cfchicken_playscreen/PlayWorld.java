@@ -25,7 +25,7 @@ public class PlayWorld implements IScorer {
 	private boolean levelWon; // if the level has been won or not
 	private boolean camFollowChicken;
 	
-	private int score;
+	private double score;
         
         private ArrayList<GenObj> genObjectsList;
 	
@@ -152,6 +152,8 @@ public class PlayWorld implements IScorer {
 		{
 			camFollowChicken = false;
 		}
+        
+        score += 2 * delta;
 		
 	}
 	
@@ -174,7 +176,7 @@ public class PlayWorld implements IScorer {
 		if (levelWon)
 		{
 			System.out.println("Sending nextLevel message");
-			container.nextLevel(score); // start the next level, passing out the score
+			container.nextLevel((int)score); // start the next level, passing out the score
 		}
 		else if (!chicken.isAlive())
 		{
@@ -214,7 +216,7 @@ public class PlayWorld implements IScorer {
 	
 	public int getScore()
 	{
-		return score;
+		return (int) score;
 	}
 	
 }
