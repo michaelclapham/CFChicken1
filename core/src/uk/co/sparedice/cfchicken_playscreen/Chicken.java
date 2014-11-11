@@ -3,6 +3,7 @@ package uk.co.sparedice.cfchicken_playscreen;
 import uk.co.sparedice.cfchicken1.AssetLoader;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Chicken {
 
@@ -12,7 +13,7 @@ public class Chicken {
 	public static final float FALL_ACCEL = 1450; // the acceleration due to gravity
 	public static final float JUMP_SPEED = 600; // The reduction on gravity when the jump button is held
 	public static final float DIVE_SPEED = 600; // The addition on gravity when the dive button is held
-	public static final float RUN_SPEED = 200;
+	public static final float RUN_SPEED = 150;
 	
 	public static final int STARTING_HEALTH = 1;
 	public static final float DAMAGE_COOLDOWN = 2; // the time before the chicken can take more damage
@@ -39,9 +40,9 @@ public class Chicken {
 	
 	private boolean alive;
         
-        private float animCounter = 0;
-        private float animStep = 0.15f;
-        private int animFrame = 0;
+    private float animCounter = 0;
+    private float animStep = 0.10f;
+    private int animFrame = 0;
 	
 	public Chicken(int x, int y)
 	{
@@ -234,6 +235,10 @@ public class Chicken {
         if(animFrame > 9){
             animFrame = 0;
         }
+    }
+    
+    public Rectangle getWorldCollisionRectangle(){
+        return new Rectangle(xLoc, yLoc, WIDTH, HEIGHT);
     }
 	
 	

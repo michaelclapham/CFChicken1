@@ -18,6 +18,9 @@ public class AssetLoader {
 	public static TextureRegion ceiling;
 	public static Texture platform;
 	public static Texture blackGradient;
+        
+        public static Texture sawblade1;
+        public static Texture sawblade1_plank;
 	
 	public static Texture cage_chick;
 	public static Texture cage_bomb;
@@ -47,7 +50,14 @@ public class AssetLoader {
 		cage_chick = new Texture(Gdx.files.internal("images/CageChick.png"));
 		cage_bomb = new Texture(Gdx.files.internal("images/CageBomb.png"));
 		cage_broken = new Texture(Gdx.files.internal("images/CageBroken.png"));
+                
+        sawblade1 = intTex("images/objects/sawblades/blade1.png");
+        sawblade1_plank = intTex("images/objects/sawblades/plank1.png");
 	}
+        
+        private static Texture intTex(String dir){
+            return new Texture(Gdx.files.internal(dir));
+        }
 	
 	// Any texture that is created should be disposed of here
 	public static void dispose()

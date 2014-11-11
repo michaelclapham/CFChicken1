@@ -20,6 +20,9 @@ public class PlayRenderer {
 	
 	private OrthographicCamera cam;
 	private FitViewport viewport;
+    
+    private float WORLD_WIDTH = 500;
+    private float WORLD_HEIGHT = 300;
 	
 	// Takes the world and GUI the renderer is to render
 	public PlayRenderer(PlayWorld world, PlayGUI gui)
@@ -28,8 +31,8 @@ public class PlayRenderer {
 		this.gui = gui;
 		
 		cam = new OrthographicCamera();
-		cam.setToOrtho(false, 400, 300);
-		viewport = new FitViewport(400, 300, cam);
+		cam.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
+		viewport = new FitViewport(WORLD_WIDTH, WORLD_HEIGHT, cam);
 		
 		batch = new SpriteBatch();
 		batch.setProjectionMatrix(cam.combined);
@@ -54,29 +57,29 @@ public class PlayRenderer {
 		shapeRenderer.begin(ShapeType.Filled);
 		
 			shapeRenderer.setColor(0.5f, 0.5f, 0.5f, 1f);
-			shapeRenderer.rect(cam.position.x - (viewport.getWorldWidth() / 2), 0, 400, 300);
+			shapeRenderer.rect(cam.position.x - (viewport.getWorldWidth() / 2), 0, WORLD_WIDTH, WORLD_HEIGHT);
 		
 			shapeRenderer.setColor(0.3f, 0.3f, 0.3f, 1f);
 			float left = cam.position.x - (viewport.getWorldWidth() / 2) - ((cam.position.x - (viewport.getWorldWidth() / 2)) % 150);
 			for (int i = 0; i < 5; i++)
 			{
-				shapeRenderer.rect(left + (i * 150), 0, 75, 300);
+				shapeRenderer.rect(left + (i * 150), 0, 75, WORLD_HEIGHT);
 			}
 			
 		shapeRenderer.end();
 		
 		batch.begin();
-			left = cam.position.x - (viewport.getWorldWidth() / 2) - ((cam.position.x - (viewport.getWorldWidth() / 2)) % 400);
-			batch.draw(AssetLoader.floor, left, -300, 400, 300);
-			batch.draw(AssetLoader.floor, left + 400, -300, 400, 300);
-			batch.draw(AssetLoader.ceiling, left, 300, 400, 300);
-			batch.draw(AssetLoader.ceiling, left + 400, 300, 400, 300);
+			left = cam.position.x - (viewport.getWorldWidth() / 2) - ((cam.position.x - (viewport.getWorldWidth() / 2)) % WORLD_WIDTH);
+			batch.draw(AssetLoader.floor, left, -WORLD_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT);
+			batch.draw(AssetLoader.floor, left + WORLD_WIDTH, -WORLD_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT);
+			batch.draw(AssetLoader.ceiling, left, WORLD_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT);
+			batch.draw(AssetLoader.ceiling, left + WORLD_WIDTH, WORLD_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT);
 			
 			if (cam.position.x >= world.getWorldLength() - 200)
 			{
-				batch.draw(AssetLoader.blackGradient, world.getWorldLength(), 300, 200, 300);
-				batch.draw(AssetLoader.blackGradient, world.getWorldLength(), 0, 200, 300);
-				batch.draw(AssetLoader.blackGradient, world.getWorldLength(), -300, 200, 300);
+				batch.draw(AssetLoader.blackGradient, world.getWorldLength(), WORLD_HEIGHT, 200, WORLD_HEIGHT);
+				batch.draw(AssetLoader.blackGradient, world.getWorldLength(), 0, 200, WORLD_HEIGHT);
+				batch.draw(AssetLoader.blackGradient, world.getWorldLength(), -WORLD_HEIGHT, 200, WORLD_HEIGHT);
 			}
 		batch.end();
 		
@@ -87,7 +90,7 @@ public class PlayRenderer {
 	public void resize()
 	{
 		cam = new OrthographicCamera();
-		cam.setToOrtho(false, 400, 300);
+		cam.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
 		batch.setProjectionMatrix(cam.combined);
 		shapeRenderer.setProjectionMatrix(cam.combined);
 		viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
