@@ -73,6 +73,9 @@ public class PlayWorld {
 			if (rnd.nextInt(5) == 1) // place a cage on this platform
 			{
 				boolean isBomb = (rnd.nextInt(2) == 1);
+				float randLength = thisLength - Cage.SIZE;
+				if (randLength < 1)
+					randLength = 1;
 				genObjectsList.add(new Cage(rnd.nextInt(thisLength - Cage.SIZE) + lastPlatformEnd, thisPlatformHeight, isBomb));
 			}
 			
