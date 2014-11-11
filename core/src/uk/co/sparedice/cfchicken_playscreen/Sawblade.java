@@ -10,10 +10,8 @@ import com.badlogic.gdx.math.Rectangle;
 import uk.co.sparedice.cfchicken1.AssetLoader;
 
 public class Sawblade implements GenObj {
-
-	public static final int HEIGHT = 20;
 	
-	// The x and y refers to the top of the platform
+	// The x and y refers to the centre of the sawblade
 	private float x;
 	private float y;
         
@@ -31,8 +29,8 @@ public class Sawblade implements GenObj {
 	public void render(SpriteBatch batch, ShapeRenderer renderer)
 	{
 		batch.begin();
-            batch.draw(new TextureRegion(AssetLoader.sawblade1), x, y, SAWBLADE_RADIUS , SAWBLADE_RADIUS, SAWBLADE_RADIUS * 2, SAWBLADE_RADIUS * 2, 1, 1, angle);
-            batch.draw(AssetLoader.sawblade1_plank, x , y, SAWBLADE_RADIUS * 2f, SAWBLADE_RADIUS * 4.8f);
+            batch.draw(new TextureRegion(AssetLoader.sawblade1), x - SAWBLADE_RADIUS, y - SAWBLADE_RADIUS, SAWBLADE_RADIUS , SAWBLADE_RADIUS, SAWBLADE_RADIUS * 2, SAWBLADE_RADIUS * 2, 1, 1, angle);
+            batch.draw(AssetLoader.sawblade1_plank, x - SAWBLADE_RADIUS , y - SAWBLADE_RADIUS, SAWBLADE_RADIUS * 2f, SAWBLADE_RADIUS * 4.8f);
 		batch.end();
 	}
 
@@ -59,7 +57,7 @@ public class Sawblade implements GenObj {
 
     @Override
     public Rectangle getWorldCollisionRectangle() {
-        return new Rectangle(x, y, SAWBLADE_RADIUS*2, SAWBLADE_RADIUS*2);
+        return new Rectangle(x - SAWBLADE_RADIUS, y - SAWBLADE_RADIUS, SAWBLADE_RADIUS*2, SAWBLADE_RADIUS*2);
     }
 
     @Override

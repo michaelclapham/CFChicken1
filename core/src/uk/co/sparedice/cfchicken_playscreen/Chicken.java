@@ -70,6 +70,8 @@ public class Chicken {
 			else
 				batch.draw(AssetLoader.chicken, xLoc - (WIDTH / 2), yLoc, WIDTH, HEIGHT);
 		batch.end();
+		
+		
 	}
 	
 	public void update(float delta)
@@ -238,7 +240,7 @@ public class Chicken {
     }
     
     public Rectangle getWorldCollisionRectangle(){
-        return new Rectangle(xLoc, yLoc, WIDTH, HEIGHT);
+        return new Rectangle(xLoc - (WIDTH / 2), yLoc, WIDTH, HEIGHT);
     }
 	
 	
