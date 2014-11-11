@@ -81,7 +81,13 @@ public class Cage implements GenObj {
 
     @Override
     public void onChickenCollide(Chicken c) {
-        //
+        if(c.isKicking() && !isBroken){
+            if(isBomb){
+                c.die();
+            } else {
+                // @TODO: RELEASE THE BIRDS!!!!
+            }
+        }
     }
 
 	

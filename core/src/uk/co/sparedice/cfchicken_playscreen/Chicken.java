@@ -242,6 +242,9 @@ public class Chicken {
     public Rectangle getWorldCollisionRectangle(){
         return new Rectangle(xLoc - (WIDTH / 2), yLoc, WIDTH, HEIGHT);
     }
-	
+
+    public boolean isKicking() {
+        return kicking;
+    }
 	
 }
