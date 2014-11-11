@@ -1,10 +1,10 @@
 package uk.co.sparedice.cfchicken_playscreen;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Rectangle;
 import uk.co.sparedice.cfchicken1.AssetLoader;
@@ -25,6 +25,8 @@ public class Sawblade implements GenObj {
     
     private int type = TYPE_PLATFORM;
     
+    private float killPadding = 0.99f;
+    
 	public Sawblade(int x, int y)
 	{
 		this(x,y,TYPE_PLATFORM);
@@ -44,6 +46,11 @@ public class Sawblade implements GenObj {
             if(type == TYPE_PLANK)
                 batch.draw(AssetLoader.sawblade1_plank, x - SAWBLADE_RADIUS , y - SAWBLADE_RADIUS, SAWBLADE_RADIUS * 2f, SAWBLADE_RADIUS * 4.8f);
 		batch.end();
+        renderer.begin(ShapeRenderer.ShapeType.Line);
+            renderer.setColor(Color.RED);
+            Rectangle r = getWorldCollisionRectangle();
+            renderer.rect(r.x, r.y, r.width, r.height);
+        renderer.end();
 	}
 
 	public float getX() {
@@ -69,7 +76,10 @@ public class Sawblade implements GenObj {
 
     @Override
     public Rectangle getWorldCollisionRectangle() {
-        return new Rectangle(x - SAWBLADE_RADIUS, y - SAWBLADE_RADIUS, SAWBLADE_RADIUS*2, SAWBLADE_RADIUS*2);
+        return new Rectangle(x - (SAWBLADE_RADIUS*(1-killPadding)),
+                y - (SAWBLADE_RADIUS*(1-killPadding)),
+                SAWBLADE_RADIUS*(2-killPadding),
+                SAWBLADE_RADIUS*(2-killPadding));
     }
 
     @Override
