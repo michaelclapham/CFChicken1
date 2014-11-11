@@ -19,7 +19,6 @@ public class PlayWorld {
 	
 	private Chicken chicken;
 	private ArrayList<Platform> platforms;
-	private ArrayList<Cage> cages;
 	
 	private int worldLength;
 	
@@ -53,7 +52,6 @@ public class PlayWorld {
 		
 		chicken = new Chicken(300, 200);
 		platforms = new ArrayList<Platform>();
-		cages = new ArrayList<Cage>();
                 
         genObjectsList = new ArrayList<GenObj>();
                 
@@ -75,7 +73,7 @@ public class PlayWorld {
 			if (rnd.nextInt(5) == 1) // place a cage on this platform
 			{
 				boolean isBomb = (rnd.nextInt(2) == 1);
-				cages.add(new Cage(rnd.nextInt(thisLength - Cage.SIZE) + lastPlatformEnd, thisPlatformHeight, isBomb));
+				genObjectsList.add(new Cage(rnd.nextInt(thisLength - Cage.SIZE) + lastPlatformEnd, thisPlatformHeight, isBomb));
 			}
 			
 			lastPlatformEnd += thisLength;	
@@ -161,8 +159,6 @@ public class PlayWorld {
 		
 		for (Platform platform : platforms)
 			platform.render(batch, renderer);
-		for (Cage cage : cages)
-			cage.render(batch, renderer);
 		
 		chicken.render(batch);
                 
@@ -180,7 +176,7 @@ public class PlayWorld {
 		}
 		else if (!chicken.isAlive())
 		{
-			
+            container.nextLevel(0);
 		}
 		else
 		{
