@@ -164,7 +164,7 @@ public class PlayWorld {
 			case Input.Keys.SPACE: if (chicken.isAlive()) chicken.jump(); break;
 			case Input.Keys.UP: if (chicken.isAlive()) chicken.jump(); break;
 			case Input.Keys.DOWN: if (chicken.isAlive()) chicken.setDiving(true); break;
-			case Input.Keys.A: if (chicken.isAlive()) chicken.damage(1); break; // temporary for testing
+			case Input.Keys.A: if (chicken.isAlive()) chicken.kick(); break;
 			}
 		}
 	}
