@@ -43,9 +43,10 @@ public class Cage implements GenObj {
 		batch.end();
         
         renderer.begin(ShapeRenderer.ShapeType.Filled);
-            if(isBroken)
+            if(isBroken && !isBomb){
                 renderer.setColor(Color.YELLOW);
                 renderer.circle(birdX, birdY, 20);
+            }
         renderer.end();
 	}
 	
