@@ -19,6 +19,7 @@ public class PlayWorld {
 	
 	private Chicken chicken;
 	private ArrayList<Platform> platforms;
+	private ArrayList<Cage> cages;
 	
 	private int worldLength;
 	
@@ -50,6 +51,7 @@ public class PlayWorld {
 		
 		chicken = new Chicken(300, 200);
 		platforms = new ArrayList<Platform>();
+		cages = new ArrayList<Cage>();
 		
 		Random rnd = new Random();
 		
@@ -59,7 +61,15 @@ public class PlayWorld {
 			int thisLength = rnd.nextInt(200) + 100;
 			if (lastPlatformEnd + thisLength > worldLength) // ensure the platforms do not go past the edge of the world
 				thisLength = worldLength - lastPlatformEnd;
-			platforms.add(new Platform(lastPlatformEnd, rnd.nextInt(230) + 20, thisLength));
+			int thisPlatformHeight = rnd.nextInt(230) + 20;
+			platforms.add(new Platform(lastPlatformEnd, thisPlatformHeight, thisLength));
+			
+			if (rnd.nextInt(5) == 1) // place a cage on this platform
+			{
+				boolean isBomb = (rnd.nextInt(1) == 1);
+				cages.add(new Cage(rnd.nextInt(thisLength - Cage.SIZE) + lastPlatformEnd, thisPlatformHeight, isBomb));
+			}
+			
 			lastPlatformEnd += thisLength;	
 		}	
 	}
@@ -130,12 +140,14 @@ public class PlayWorld {
 	
 	public void render(SpriteBatch batch, ShapeRenderer renderer)
 	{
-		// call render code on everything in world
-		
-		chicken.render(batch);
+		// call render code on everything in world		
 		
 		for (Platform platform : platforms)
 			platform.render(batch, renderer);
+		for (Cage cage : cages)
+			cage.render(batch);
+		
+		chicken.render(batch);
 	}
 	
 	public void keyDown(int keycode)
@@ -152,7 +164,7 @@ public class PlayWorld {
 			case Input.Keys.SPACE: if (chicken.isAlive()) chicken.jump(); break;
 			case Input.Keys.UP: if (chicken.isAlive()) chicken.jump(); break;
 			case Input.Keys.DOWN: if (chicken.isAlive()) chicken.setDiving(true); break;
-			case Input.Keys.A: if (chicken.isAlive()) chicken.damage(1); break; // temporary for testing
+			case Input.Keys.A: if (chicken.isAlive()) chicken.kick(); break;
 			}
 		}
 	}

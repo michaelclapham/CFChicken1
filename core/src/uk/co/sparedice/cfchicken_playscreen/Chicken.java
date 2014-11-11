@@ -17,6 +17,8 @@ public class Chicken {
 	public static final int STARTING_HEALTH = 1;
 	public static final float DAMAGE_COOLDOWN = 2; // the time before the chicken can take more damage
 	
+	public static final float KICK_TIME = 0.5f; // The length of time that a kick takes
+	
 	// The location of the chicken is the centre of its base
 	private float xLoc;
 	private float yLoc;
@@ -31,6 +33,9 @@ public class Chicken {
 	private boolean falling;
 	private boolean diving;
 	private boolean jumping;
+	private boolean kicking;
+	
+	private float kickTimer;
 	
 	private boolean alive;
         
@@ -55,7 +60,12 @@ public class Chicken {
 		batch.begin();
 			// Draw the chicken where xLoc and yLoc refer to the centre of the chicken image's base
 			if (alive)
-				batch.draw(AssetLoader.chicken_anim_running1[animFrame], xLoc - (WIDTH / 2), yLoc, WIDTH, HEIGHT);
+			{
+				if (kicking)
+					batch.draw(AssetLoader.chicken_kicking, xLoc - (WIDTH / 2), yLoc, WIDTH, HEIGHT);
+				else
+					batch.draw(AssetLoader.chicken_anim_running1[animFrame], xLoc - (WIDTH / 2), yLoc, WIDTH, HEIGHT);
+			}
 			else
 				batch.draw(AssetLoader.chicken, xLoc - (WIDTH / 2), yLoc, WIDTH, HEIGHT);
 		batch.end();
@@ -72,6 +82,17 @@ public class Chicken {
 				invulnTime = 0;
 			}
 			System.out.println("Invulnerable");
+		}
+		
+		// check if the chicken is kicking
+		if (kicking)
+		{
+			kickTimer += delta;
+			if (kickTimer >= KICK_TIME)
+			{
+				kicking = false;
+				kickTimer = 0;
+			}
 		}
 		
 		if (diving)
@@ -107,6 +128,13 @@ public class Chicken {
 	{
 		if (!falling)
 			speedY = 600;
+	}
+	
+	public void kick()
+	{
+		kicking = true;
+		if (!falling) // add a small jump to the kick if the chicken is on the floor
+			speedY = 400;
 	}
 	
 	public void damage(int amount)
