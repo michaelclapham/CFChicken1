@@ -15,22 +15,34 @@ public class Sawblade implements GenObj {
 	private float x;
 	private float y;
         
-        private float SAWBLADE_RADIUS = 25;
-        
-        private float angle = 0;
-        private float angleStep = 10f;
-        
+    private float SAWBLADE_RADIUS = 25;
+
+    private float angle = 0;
+    private float angleStep = 10f;
+    
+    public static final int TYPE_PLATFORM = 0;
+    public static final int TYPE_PLANK = 1;
+    
+    private int type = TYPE_PLATFORM;
+    
 	public Sawblade(int x, int y)
+	{
+		this(x,y,TYPE_PLATFORM);
+	}
+    
+    public Sawblade(int x, int y, int type)
 	{
 		this.x = x;
 		this.y = y;
+        this.type = type;
 	}
 	
 	public void render(SpriteBatch batch, ShapeRenderer renderer)
 	{
 		batch.begin();
             batch.draw(new TextureRegion(AssetLoader.sawblade1), x - SAWBLADE_RADIUS, y - SAWBLADE_RADIUS, SAWBLADE_RADIUS , SAWBLADE_RADIUS, SAWBLADE_RADIUS * 2, SAWBLADE_RADIUS * 2, 1, 1, angle);
-            batch.draw(AssetLoader.sawblade1_plank, x - SAWBLADE_RADIUS , y - SAWBLADE_RADIUS, SAWBLADE_RADIUS * 2f, SAWBLADE_RADIUS * 4.8f);
+            if(type == TYPE_PLANK)
+                batch.draw(AssetLoader.sawblade1_plank, x - SAWBLADE_RADIUS , y - SAWBLADE_RADIUS, SAWBLADE_RADIUS * 2f, SAWBLADE_RADIUS * 4.8f);
 		batch.end();
 	}
 
