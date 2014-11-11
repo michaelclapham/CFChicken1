@@ -26,6 +26,8 @@ public class PlayWorld {
 	private boolean camFollowChicken;
 	
 	private int score;
+        
+        private ArrayList<GenObj> genObjectsList;
 	
 	public PlayWorld(ICFCWorldContainer container, int length)
 	{
@@ -50,6 +52,12 @@ public class PlayWorld {
 		
 		chicken = new Chicken(300, 200);
 		platforms = new ArrayList<Platform>();
+                
+                genObjectsList = new ArrayList<GenObj>();
+                
+                for(int i = 0; i < 20; i++){
+                    genObjectsList.add(new Sawblade(200 + (i*200), (int) (50 + Math.random()*100)));
+                }
 		
 		Random rnd = new Random();
 		
@@ -66,6 +74,14 @@ public class PlayWorld {
 	
 	public void update(float delta)
 	{
+                // Update generic objects
+                for (GenObj go : genObjectsList){
+                    go.update(delta);
+                    if(chicken.getWorldCollisionRectangle().overlaps(go.getWorldCollisionRectangle())){
+                        go.onChickenCollide(chicken);
+                    }
+                }
+            
 		// check if the chicken is diving
 		if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
 			chicken.setDiving(true);
@@ -120,6 +136,7 @@ public class PlayWorld {
 				levelWon = true;
 				camFollowChicken = false;
 			}
+                        
 		}
 		else // the chicken is dead
 		{
@@ -136,6 +153,10 @@ public class PlayWorld {
 		
 		for (Platform platform : platforms)
 			platform.render(batch, renderer);
+                
+                for (GenObj go : genObjectsList){
+                    go.render(batch, renderer);
+                }
 	}
 	
 	public void keyDown(int keycode)
