@@ -44,7 +44,7 @@ public class PlayRenderer {
 	{
 		if (world.isCamFollowingChicken())
 		{
-			cam.position.set(world.getChicken().getX(), world.getChicken().getY(), 0);
+			cam.position.set(world.getChicken().getX(), (WORLD_HEIGHT / 2) + (world.getChicken().getY() - (WORLD_HEIGHT / 2)) / 5, 0);
 			cam.update();
 		}
 		
