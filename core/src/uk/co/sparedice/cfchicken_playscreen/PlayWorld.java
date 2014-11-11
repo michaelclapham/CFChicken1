@@ -162,7 +162,7 @@ public class PlayWorld {
 		for (Platform platform : platforms)
 			platform.render(batch, renderer);
 		for (Cage cage : cages)
-			cage.render(batch);
+			cage.render(batch, renderer);
 		
 		chicken.render(batch);
                 

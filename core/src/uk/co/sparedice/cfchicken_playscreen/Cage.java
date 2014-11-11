@@ -3,8 +3,10 @@ package uk.co.sparedice.cfchicken_playscreen;
 import uk.co.sparedice.cfchicken1.AssetLoader;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 
-public class Cage {
+public class Cage implements GenObj {
 
 	public static final int SIZE = 50;
 	
@@ -21,7 +23,7 @@ public class Cage {
 		isBroken = false;
 	}
 	
-	public void render(SpriteBatch batch)
+	public void render(SpriteBatch batch, ShapeRenderer renderer)
 	{
 		batch.begin();
 			if (isBroken)
@@ -66,6 +68,21 @@ public class Cage {
 	{
 		return isBroken;
 	}
+
+    @Override
+    public void update(float delta) {
+        //
+    }
+
+    @Override
+    public Rectangle getWorldCollisionRectangle() {
+        return new Rectangle(x, y, SIZE, SIZE);
+    }
+
+    @Override
+    public void onChickenCollide(Chicken c) {
+        //
+    }
 
 	
 }
