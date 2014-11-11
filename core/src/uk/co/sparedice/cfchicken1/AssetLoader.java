@@ -18,6 +18,10 @@ public class AssetLoader {
 	public static Texture platform;
 	public static Texture blackGradient;
 	
+	public static Texture cage_chick;
+	public static Texture cage_bomb;
+	public static Texture cage_broken;
+	
 	// Called at the start of program execution
 	public static void load()
 	{
@@ -37,6 +41,10 @@ public class AssetLoader {
 		ceiling.flip(false, true);
 		platform = new Texture(Gdx.files.internal("images/Platform.png"));
 		blackGradient = new Texture(Gdx.files.internal("images/BlackGradient.png"));
+		
+		cage_chick = new Texture(Gdx.files.internal("images/CageChick.png"));
+		cage_bomb = new Texture(Gdx.files.internal("images/CageBomb.png"));
+		cage_broken = new Texture(Gdx.files.internal("images/CageBroken.png"));
 	}
 	
 	// Any texture that is created should be disposed of here
@@ -47,6 +55,9 @@ public class AssetLoader {
 		floorTexture.dispose();
 		platform.dispose();
 		blackGradient.dispose();
+		cage_chick.dispose();
+		cage_bomb.dispose();
+		cage_broken.dispose();
 	}
 	
 }
