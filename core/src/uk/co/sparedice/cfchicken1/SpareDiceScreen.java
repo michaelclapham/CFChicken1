@@ -26,10 +26,10 @@ public class SpareDiceScreen implements Screen {
 		batch.end();
 		
 		if(time > 2 && time < 6){
-			PlayScreen playScreen = new PlayScreen(info.displayWidth,info.displayHeight,info.launcherType);
-			game.setScreen(playScreen);
+			MainMenuScreen mms = new MainMenuScreen(info,game);
+			game.setScreen(mms);
+			Gdx.input.setInputProcessor(mms);
 			time = 5;
-			Gdx.input.setInputProcessor(playScreen);
 		} else {
 			time += delta;
 		}
