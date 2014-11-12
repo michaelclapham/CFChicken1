@@ -26,7 +26,7 @@ public class Platform {
 	public void render(SpriteBatch batch, ShapeRenderer renderer)
 	{
 		batch.begin();
-			batch.draw(new TextureRegion(AssetLoader.platform, (int) length, 20), x, y - HEIGHT, length, HEIGHT); 
+			batch.draw(new TextureRegion(AssetLoader.platform, (int) length, 40), x, y - HEIGHT, length, HEIGHT); 
 		batch.end();
 	}
 

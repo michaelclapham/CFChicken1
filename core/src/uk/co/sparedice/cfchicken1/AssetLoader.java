@@ -20,6 +20,7 @@ public class AssetLoader {
 	public static TextureRegion ceiling;
 	public static Texture platform;
 	public static Texture blackGradient;
+	public static Texture background;
         
         public static Texture sawblade1;
         public static Texture sawblade1_plank;
@@ -50,6 +51,7 @@ public class AssetLoader {
 		ceiling.flip(false, true);
 		platform = new Texture(Gdx.files.internal("images/Platform.png"));
 		blackGradient = new Texture(Gdx.files.internal("images/BlackGradient.png"));
+		background = new Texture(Gdx.files.internal("images/Background.png"));
 		
 		cage_chick = new Texture(Gdx.files.internal("images/CageChick.png"));
 		cage_bomb = new Texture(Gdx.files.internal("images/CageBomb.png"));
@@ -73,6 +75,7 @@ public class AssetLoader {
 		floorTexture.dispose();
 		platform.dispose();
 		blackGradient.dispose();
+		background.dispose();
 		cage_chick.dispose();
 		cage_bomb.dispose();
 		cage_broken.dispose();

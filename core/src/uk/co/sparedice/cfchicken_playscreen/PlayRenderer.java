@@ -72,6 +72,8 @@ public class PlayRenderer {
 			left = cam.position.x - (viewport.getWorldWidth() / 2) - ((cam.position.x - (viewport.getWorldWidth() / 2)) % WORLD_WIDTH);
 			batch.draw(AssetLoader.floor, left, -WORLD_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT);
 			batch.draw(AssetLoader.floor, left + WORLD_WIDTH, -WORLD_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT);
+			batch.draw(AssetLoader.background, left, 0, WORLD_WIDTH, WORLD_HEIGHT);
+			batch.draw(AssetLoader.background, left + WORLD_WIDTH, 0, WORLD_WIDTH, WORLD_HEIGHT);
 			batch.draw(AssetLoader.ceiling, left, WORLD_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT);
 			batch.draw(AssetLoader.ceiling, left + WORLD_WIDTH, WORLD_HEIGHT, WORLD_WIDTH, WORLD_HEIGHT);
 		batch.end();
