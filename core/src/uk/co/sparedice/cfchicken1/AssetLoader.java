@@ -28,6 +28,8 @@ public class AssetLoader {
 	public static Texture cage_chick;
 	public static Texture cage_bomb;
 	public static Texture cage_broken;
+
+	public static Texture sawblade1_platform_base;
 	
 	// Called at the start of program execution
 	public static void load()
@@ -59,6 +61,7 @@ public class AssetLoader {
                 
         sawblade1 = intTex("images/objects/sawblades/blade1.png");
         sawblade1_plank = intTex("images/objects/sawblades/plank1.png");
+        sawblade1_platform_base = intTex("images/objects/sawblades/platform_base.png");
 	}
         
         private static Texture intTex(String dir){

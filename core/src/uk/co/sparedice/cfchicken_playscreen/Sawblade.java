@@ -45,7 +45,10 @@ public class Sawblade implements GenObj {
             batch.draw(new TextureRegion(AssetLoader.sawblade1), x - SAWBLADE_RADIUS, y - SAWBLADE_RADIUS, SAWBLADE_RADIUS , SAWBLADE_RADIUS, SAWBLADE_RADIUS * 2, SAWBLADE_RADIUS * 2, 1, 1, angle);
             if(type == TYPE_PLANK)
                 batch.draw(AssetLoader.sawblade1_plank, x - SAWBLADE_RADIUS , y - SAWBLADE_RADIUS, SAWBLADE_RADIUS * 2f, SAWBLADE_RADIUS * 4.8f);
-		batch.end();
+            if(type == TYPE_PLATFORM){
+            	batch.draw(AssetLoader.sawblade1_platform_base, x - SAWBLADE_RADIUS , y - SAWBLADE_RADIUS, SAWBLADE_RADIUS * 2, SAWBLADE_RADIUS * 2);
+            }
+        batch.end();
         renderer.begin(ShapeRenderer.ShapeType.Line);
             renderer.setColor(Color.RED);
             Rectangle r = getWorldCollisionRectangle();
