@@ -23,6 +23,8 @@ public class CFChicken1 extends Game {
 		
 		AssetLoader.load();
 		
+		AssetLoader.launcherType = info.launcherType;
+		
 		//playScreen = new PlayScreen(info.displayWidth,info.displayHeight,info.launcherType);
 		SpareDiceScreen sdc = new SpareDiceScreen(info,this);
 		setScreen(sdc);

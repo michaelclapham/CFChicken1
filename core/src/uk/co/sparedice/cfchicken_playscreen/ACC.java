@@ -7,6 +7,7 @@
 package uk.co.sparedice.cfchicken_playscreen;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 public class ACC {
     
     private static ArrayList<ControlActionListener> cals = new ArrayList<ControlActionListener>();
+    
+    private static HashMap<String,Boolean> boolsMap = new HashMap<String,Boolean>();
     
     public static void broadcastAction(String actionName){
         for(ControlActionListener cal : cals){
@@ -25,5 +28,14 @@ public class ACC {
     public static void addActionListener(ControlActionListener cal){
         cals.add(cal);
     }
+    
+    public static void setBoolValue(String key, boolean value){
+    	boolsMap.put(key, value);
+    }
+    
+    public static boolean getBoolValue(String key){
+    	return boolsMap.get(key);
+    }
+    
     
 }

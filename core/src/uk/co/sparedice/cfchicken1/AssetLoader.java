@@ -34,6 +34,8 @@ public class AssetLoader {
 	public static Texture sparedice_splash;
 	public static Texture cfc_splash_screen;
 	
+	public static String launcherType;
+	
 	// Called at the start of program execution
 	public static void load()
 	{
