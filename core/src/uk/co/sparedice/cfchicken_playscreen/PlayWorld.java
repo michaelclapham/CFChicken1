@@ -62,10 +62,10 @@ public class PlayWorld implements IScorer, ControlActionListener {
 		platforms = new ArrayList<Platform>();
                 
         genObjectsList = new ArrayList<GenObj>();
-                
+         /*       
         for(int i = 0; i < 6; i++){
             genObjectsList.add(new Sawblade(600 + (i*400), (int) (50 + Math.random()*150)));
-        }
+        }*/
 		
 		Random rnd = new Random();
 		
@@ -85,6 +85,14 @@ public class PlayWorld implements IScorer, ControlActionListener {
 				if (randLength < 1)
 					randLength = 1;
 				genObjectsList.add(new Cage((IScorer) this, rnd.nextInt(randLength) + lastPlatformEnd, thisPlatformHeight, isBomb));
+			}
+			
+			if (rnd.nextInt(3) == 1)
+			{
+				int randLength = thisLength - Sawblade.SAWBLADE_RADIUS;
+				if (randLength < 1)
+					randLength = 1;
+				genObjectsList.add(new Sawblade(rnd.nextInt(randLength) + lastPlatformEnd, thisPlatformHeight + Sawblade.SAWBLADE_RADIUS));
 			}
 			
 			lastPlatformEnd += thisLength;	

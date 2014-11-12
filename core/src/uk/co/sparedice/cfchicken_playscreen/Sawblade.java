@@ -11,11 +11,11 @@ import uk.co.sparedice.cfchicken1.AssetLoader;
 
 public class Sawblade implements GenObj {
 	
+	public static final int SAWBLADE_RADIUS = 25;
+	
 	// The x and y refers to the centre of the sawblade
 	private float x;
 	private float y;
-        
-    private float SAWBLADE_RADIUS = 25;
 
     private float angle = 0;
     private float angleStep = 10f;
