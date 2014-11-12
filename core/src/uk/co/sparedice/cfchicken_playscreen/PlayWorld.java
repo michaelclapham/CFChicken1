@@ -80,7 +80,7 @@ public class PlayWorld implements IScorer, ControlActionListener {
 			
 			if (rnd.nextInt(5) == 1) // place a cage on this platform
 			{
-				boolean isBomb = (rnd.nextInt(2) == 1);
+				boolean isBomb = (rnd.nextInt(4) == 0);
 				int randLength = thisLength - Cage.SIZE;
 				if (randLength < 1)
 					randLength = 1;
