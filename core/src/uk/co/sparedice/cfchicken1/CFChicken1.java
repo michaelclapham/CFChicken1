@@ -12,14 +12,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class CFChicken1 extends Game {
 	
     PlayScreen playScreen;
-    private final int displayWidth;
-    private final int displayHeight;
-    private final String launcherType;
+	private LauncherInfo info;
 
     public CFChicken1(int displayWidth, int displayHeight, String launcherType) {
-        this.displayWidth = displayWidth;
-        this.displayHeight = displayHeight;
-        this.launcherType = launcherType;
+        info = new LauncherInfo(displayWidth, displayHeight, launcherType);
     }
 	
 	@Override
@@ -27,9 +23,10 @@ public class CFChicken1 extends Game {
 		
 		AssetLoader.load();
 		
-		playScreen = new PlayScreen(displayWidth,displayHeight,launcherType);
-		setScreen(playScreen);
-		Gdx.input.setInputProcessor(playScreen);
+		//playScreen = new PlayScreen(info.displayWidth,info.displayHeight,info.launcherType);
+		SpareDiceScreen sdc = new SpareDiceScreen(info,this);
+		setScreen(sdc);
+		
 	}
 
 	@Override
@@ -37,5 +34,9 @@ public class CFChicken1 extends Game {
 	{
 		super.dispose();
 		AssetLoader.dispose();
+	}
+	
+	public void setScreen(PlayScreen ps){
+		setScreen(ps);
 	}
 }

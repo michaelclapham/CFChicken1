@@ -30,6 +30,9 @@ public class AssetLoader {
 	public static Texture cage_broken;
 
 	public static Texture sawblade1_platform_base;
+
+	public static Texture sparedice_splash;
+	public static Texture cfc_splash_screen;
 	
 	// Called at the start of program execution
 	public static void load()
@@ -62,6 +65,9 @@ public class AssetLoader {
         sawblade1 = intTex("images/objects/sawblades/blade1.png");
         sawblade1_plank = intTex("images/objects/sawblades/plank1.png");
         sawblade1_platform_base = intTex("images/objects/sawblades/platform_base.png");
+        
+        sparedice_splash = intTex("images/spare_dice_screen.jpg");
+        cfc_splash_screen = intTex("images/cfc_start_screen1.jpg");
 	}
         
         private static Texture intTex(String dir){
