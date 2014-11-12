@@ -24,6 +24,10 @@ public class PlayWorld implements IScorer, ControlActionListener {
 	
 	private boolean levelWon; // if the level has been won or not
 	private boolean camFollowChicken;
+    
+    private int displayWidth;
+    private int displayHeight;
+    private String launcherType;
 	
 	private double score;
         
@@ -35,11 +39,15 @@ public class PlayWorld implements IScorer, ControlActionListener {
 		score = 0;
 		initWorld(length);
 	}
-	
-	public PlayWorld(ICFCWorldContainer container, int length, int score)
+    
+    public PlayWorld(ICFCWorldContainer container, int length, int score, 
+            int displayWidth, int displayHeight, String launcherType)
 	{
 		this.container = container;
 		this.score = score;
+        this.displayWidth = displayWidth;
+        this.displayHeight = displayHeight;
+        this.launcherType = launcherType;
 		initWorld(length);
 	}
 	
@@ -233,6 +241,24 @@ public class PlayWorld implements IScorer, ControlActionListener {
         if(actionName == "kick"){
             if (chicken.isAlive()) chicken.kick();
         }
+    }
+
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        if(screenX < (displayWidth/2)){
+            ACC.broadcastAction("kick");
+        } else {
+            if(screenY < (displayHeight/2)){
+                System.out.println("should jump");
+                ACC.broadcastAction("jump");
+            } else {
+                ACC.broadcastAction("dive");
+            }
+        }
+        if(!chicken.isAlive() || levelWon){
+            container.nextLevel(0);
+        }
+
+        return false;
     }
 	
 }

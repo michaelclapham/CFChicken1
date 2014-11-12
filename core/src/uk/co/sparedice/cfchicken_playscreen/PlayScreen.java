@@ -10,10 +10,16 @@ public class PlayScreen implements Screen, InputProcessor, ICFCWorldContainer {
 	private PlayGUI gui;
 	private PlayRenderer renderer;
     private int worldLength = 6000;
+    private final int displayWidth;
+    private final int displayHeight;
+    private final String launcherType;
 	
-	public PlayScreen()
+	public PlayScreen(int displayWidth, int displayHeight, String launcherType)
 	{
-		world = new PlayWorld((ICFCWorldContainer) this, worldLength); // pass in the length of the level
+        this.displayWidth = displayWidth;
+        this.displayHeight = displayHeight;
+        this.launcherType = launcherType;
+		world = new PlayWorld((ICFCWorldContainer) this, worldLength, 0, displayWidth, displayHeight, launcherType); // pass in the length of the level
 		gui = new PlayGUI(world);
 		renderer = new PlayRenderer(world, gui);
 	}
@@ -22,7 +28,7 @@ public class PlayScreen implements Screen, InputProcessor, ICFCWorldContainer {
 	
 	public void nextLevel(int score)
 	{
-		world = new PlayWorld((ICFCWorldContainer) this, worldLength, score);
+		world = new PlayWorld((ICFCWorldContainer) this, worldLength, 0, displayWidth, displayHeight, launcherType);
 		renderer.linkWorld(world);
 		gui.linkWorld(world);
 	}
@@ -109,8 +115,7 @@ public class PlayScreen implements Screen, InputProcessor, ICFCWorldContainer {
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
+		return world.touchUp(screenX,screenY,pointer,button);
 	}
 
 	@Override
