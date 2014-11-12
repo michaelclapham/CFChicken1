@@ -49,11 +49,11 @@ public class Sawblade implements GenObj {
             	batch.draw(AssetLoader.sawblade1_platform_base, x - SAWBLADE_RADIUS , y - SAWBLADE_RADIUS, SAWBLADE_RADIUS * 2, SAWBLADE_RADIUS * 2);
             }
         batch.end();
-        renderer.begin(ShapeRenderer.ShapeType.Line);
+        /*renderer.begin(ShapeRenderer.ShapeType.Line);
             renderer.setColor(Color.RED);
             Rectangle r = getWorldCollisionRectangle();
             renderer.rect(r.x, r.y, r.width, r.height);
-        renderer.end();
+        renderer.end();*/
 	}
 
 	public float getX() {
