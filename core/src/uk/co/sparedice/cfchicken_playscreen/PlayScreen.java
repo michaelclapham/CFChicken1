@@ -28,7 +28,7 @@ public class PlayScreen implements Screen, InputProcessor, ICFCWorldContainer {
 	
 	public void nextLevel(int score)
 	{
-		world = new PlayWorld((ICFCWorldContainer) this, worldLength, 0, displayWidth, displayHeight, launcherType);
+		world = new PlayWorld((ICFCWorldContainer) this, worldLength, score, displayWidth, displayHeight, launcherType);
 		renderer.linkWorld(world);
 		gui.linkWorld(world);
 	}
