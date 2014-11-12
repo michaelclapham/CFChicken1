@@ -44,7 +44,7 @@ public class PlayRenderer {
 	{
 		if (world.isCamFollowingChicken())
 		{
-			cam.position.set(world.getChicken().getX(), (WORLD_HEIGHT / 2) + (world.getChicken().getY() - (WORLD_HEIGHT / 2)) / 5, 0);
+			cam.position.set(world.getChicken().getX() + (WORLD_HEIGHT / 4), (WORLD_HEIGHT / 2) + (world.getChicken().getY() - (WORLD_HEIGHT / 2)) / 5, 0);
 			cam.update();
 		}
 		
@@ -83,9 +83,9 @@ public class PlayRenderer {
 		batch.begin();
 			if (cam.position.x >= world.getWorldLength() - 200)
 			{
-				batch.draw(AssetLoader.blackGradient, world.getWorldLength(), WORLD_HEIGHT, WORLD_WIDTH / 2, WORLD_HEIGHT);
-				batch.draw(AssetLoader.blackGradient, world.getWorldLength(), 0, WORLD_WIDTH / 2, WORLD_HEIGHT);
-				batch.draw(AssetLoader.blackGradient, world.getWorldLength(), -WORLD_HEIGHT, WORLD_WIDTH / 2, WORLD_HEIGHT);
+				batch.draw(AssetLoader.blackGradient, world.getWorldLength(), WORLD_HEIGHT, WORLD_WIDTH *  3 / 4, WORLD_HEIGHT);
+				batch.draw(AssetLoader.blackGradient, world.getWorldLength(), 0, WORLD_WIDTH *  3 / 4, WORLD_HEIGHT);
+				batch.draw(AssetLoader.blackGradient, world.getWorldLength(), -WORLD_HEIGHT, WORLD_WIDTH *  3 / 4, WORLD_HEIGHT);
 			}
 		batch.end();
 		
