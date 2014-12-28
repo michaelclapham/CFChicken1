@@ -26,7 +26,7 @@ public class PlayGUI {
 	{
 		batch.begin();
 			font.draw(batch, "SCORE: " + world.getScore(), screenLocationX + 50, screenLocationY + 250);
-			
+			//batch.draw(AssetLoader.ceiling_lamp_on, screenLocationX, screenLocationY,200,200);
 			float sx = screenLocationX;
 			float sy = screenLocationY;
 			

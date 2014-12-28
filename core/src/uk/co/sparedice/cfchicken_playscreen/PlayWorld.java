@@ -10,6 +10,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 
 public class PlayWorld implements IScorer, ControlActionListener {
 
@@ -32,6 +33,8 @@ public class PlayWorld implements IScorer, ControlActionListener {
 	private double score;
         
         private ArrayList<GenObj> genObjectsList;
+        
+    private double ceilingLampCounter = 0;
 	
 	public PlayWorld(ICFCWorldContainer container, int length)
 	{
@@ -88,7 +91,8 @@ public class PlayWorld implements IScorer, ControlActionListener {
 				genObjectsList.add(new Cage((IScorer) this, rnd.nextInt(randLength) + lastPlatformEnd, thisPlatformHeight, isBomb));
 			}
 			
-			if (rnd.nextInt(4) == 1)
+            /* Sawblade Spawning */
+			if (rnd.nextInt(8) == 1)
 			{
 				int randLength = thisLength - Sawblade.SAWBLADE_RADIUS;
 				if (randLength < 1)
@@ -98,6 +102,12 @@ public class PlayWorld implements IScorer, ControlActionListener {
 			
 			lastPlatformEnd += thisLength;	
 		}	
+        
+        // Add ceiling lamps
+        for(int i = 0; i < 16; i++){
+            genObjectsList.add(new CeilingLamp(i*500, 20));
+        }
+        
 	}
 	
 	public void update(float delta)
@@ -105,8 +115,11 @@ public class PlayWorld implements IScorer, ControlActionListener {
                 // Update generic objects
                 for (GenObj go : genObjectsList){
                     go.update(delta);
-                    if(chicken.getWorldCollisionRectangle().overlaps(go.getWorldCollisionRectangle())){
-                        go.onChickenCollide(chicken);
+                    Rectangle r = go.getWorldCollisionRectangle();
+                    if(r != null){
+                        if(r.overlaps(chicken.getWorldCollisionRectangle())){
+                            go.onChickenCollide(chicken);
+                        }
                     }
                 }
             
@@ -174,6 +187,13 @@ public class PlayWorld implements IScorer, ControlActionListener {
         if(chicken.isAlive() && !levelWon){
             score += 2 * delta;
         }
+        
+        /*ceilingLampCounter += delta;
+        
+        if(ceilingLampCounter > 0.1){
+            ceilingLampCounter = -2;
+            genObjectsList.add(new CeilingLamp(chicken.getX()+400, 100));
+        }*/
 		
 	}
 	

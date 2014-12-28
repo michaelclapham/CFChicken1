@@ -33,6 +33,8 @@ public class AssetLoader {
 
 	public static Texture sparedice_splash;
 	public static Texture cfc_splash_screen;
+        
+        public static Texture ceiling_lamp_on;
 	
 	public static String launcherType;
 	
@@ -58,8 +60,9 @@ public class AssetLoader {
 		ceiling.flip(false, true);
 		platform = new Texture(Gdx.files.internal("images/Platform.png"));
 		blackGradient = new Texture(Gdx.files.internal("images/BlackGradient.png"));
-		background = new Texture(Gdx.files.internal("images/Background.png"));
-		
+		//background = new Texture(Gdx.files.internal("images/Background.png"));
+		background = new Texture(Gdx.files.internal("images/dark_rusty_steel.jpg"));
+        
 		cage_chick = new Texture(Gdx.files.internal("images/CageChick.png"));
 		cage_bomb = new Texture(Gdx.files.internal("images/CageBomb.png"));
 		cage_broken = new Texture(Gdx.files.internal("images/CageBroken.png"));
@@ -70,6 +73,8 @@ public class AssetLoader {
         
         sparedice_splash = intTex("images/spare_dice_screen.jpg");
         cfc_splash_screen = intTex("images/cfc_start_screen1.jpg");
+        
+        ceiling_lamp_on = intTex("images/objects/lighting/ceiling_lamp1_on.png");
 	}
         
         private static Texture intTex(String dir){

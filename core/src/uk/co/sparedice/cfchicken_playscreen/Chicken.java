@@ -66,7 +66,7 @@ public class Chicken {
 					batch.draw(AssetLoader.chicken_kicking, xLoc - (WIDTH / 2), yLoc, WIDTH, HEIGHT);
 				else
 					batch.draw(AssetLoader.chicken_anim_running1[animFrame], xLoc - (WIDTH / 2), yLoc, WIDTH, HEIGHT);
-			}
+            }
 			else
 				batch.draw(AssetLoader.chicken, xLoc - (WIDTH / 2), yLoc, WIDTH, HEIGHT);
 		batch.end();
