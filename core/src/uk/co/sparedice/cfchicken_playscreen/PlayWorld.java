@@ -124,16 +124,16 @@ public class PlayWorld implements IScorer, ControlActionListener {
                 }
             
 		// check if the chicken is diving
-		if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
-			chicken.setDiving(true);
-		else
-			chicken.setDiving(false);
+		//if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
+		//	chicken.setDiving(true);
+		//else
+		//	chicken.setDiving(false);
 		
 		// check if the chicken is jumping
-		if (Gdx.input.isKeyPressed(Input.Keys.UP))
-			chicken.setJumping(true);
-		else
-			chicken.setJumping(false);
+		//if (Gdx.input.isKeyPressed(Input.Keys.UP))
+		//	chicken.setJumping(true);
+		//else
+		//	chicken.setJumping(false);
 		
 		//System.out.println("isDiving " + chicken.isDiving());
 		
@@ -228,7 +228,9 @@ public class PlayWorld implements IScorer, ControlActionListener {
 			{
 			case Input.Keys.SPACE: ACC.broadcastAction("jump"); break;
 			case Input.Keys.UP: ACC.broadcastAction("jump"); break;
+            case Input.Keys.W: ACC.broadcastAction("jump");
 			case Input.Keys.DOWN: ACC.broadcastAction("dive"); break;
+            case Input.Keys.S: ACC.broadcastAction("dive");
 			case Input.Keys.A: ACC.broadcastAction("kick"); break;
 			}
 		}
@@ -262,7 +264,13 @@ public class PlayWorld implements IScorer, ControlActionListener {
     @Override
     public void onAction(String actionName) {
         if(actionName == "jump"){
-            if (chicken.isAlive()) chicken.jump();
+            if (chicken.isAlive()) {
+                chicken.jump();
+                chicken.setJumping(true);
+            }
+        }
+        if(actionName == "jumpEnd"){
+            if (chicken.isAlive()) chicken.setJumping(false);
         }
         if(actionName == "dive"){
             if (chicken.isAlive()) chicken.setDiving(true);
@@ -272,7 +280,7 @@ public class PlayWorld implements IScorer, ControlActionListener {
         }
     }
 
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if(screenX < (displayWidth/2)){
             ACC.broadcastAction("kick");
         } else {
@@ -287,6 +295,28 @@ public class PlayWorld implements IScorer, ControlActionListener {
             container.nextLevel(0);
         }
 
+        return false;
+    }
+
+    boolean touchUp(int screenX,int screenY,int pointer,int button) {
+        if(screenX < (displayWidth/2)){
+            //
+        } else {
+            if(screenY < (displayHeight/2)){
+                ACC.broadcastAction("jumpEnd");
+            } else {
+                //
+            }
+        }
+        return false;
+    }
+
+    boolean keyUp(int keycode) {
+        switch(keycode){
+            case Input.Keys.W: ACC.broadcastAction("jumpEnd");
+            case Input.Keys.SPACE: ACC.broadcastAction("jumpEnd");
+            case Input.Keys.UP: ACC.broadcastAction("jumpEnd");
+        }
         return false;
     }
 	

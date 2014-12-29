@@ -97,8 +97,7 @@ public class PlayScreen implements Screen, InputProcessor, ICFCWorldContainer {
 
 	@Override
 	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
+		return world.keyUp(keycode);
 	}
 
 	@Override
@@ -109,13 +108,12 @@ public class PlayScreen implements Screen, InputProcessor, ICFCWorldContainer {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
+		return world.touchDown(screenX,screenY,pointer,button);
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		return world.touchUp(screenX,screenY,pointer,button);
+        return world.touchUp(screenX,screenY,pointer,button);
 	}
 
 	@Override
