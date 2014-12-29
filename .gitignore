@@ -57,9 +57,9 @@ nb-configuration.xml
 ## Gradle
 
 .gradle
+gradle-app.setting
 build/
+.nb-gradle
 
 ## OS Specific
 .DS_Store
-/.nb-gradle/private/
-/.nb-gradle/profiles/private/
