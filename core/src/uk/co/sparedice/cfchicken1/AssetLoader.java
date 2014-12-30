@@ -60,7 +60,7 @@ public class AssetLoader {
 	{
         // Load localization bundle
         FileHandle baseFileHandle = Gdx.files.internal("i18n/MainBundle");
-        Locale locale = new Locale("zh", "CN", "VAR1");
+        Locale locale = new Locale("pt", "PT");
         mainBundle = I18NBundle.createBundle(baseFileHandle,locale);
         ld = mainBundle.get("localeDirectory");
         
