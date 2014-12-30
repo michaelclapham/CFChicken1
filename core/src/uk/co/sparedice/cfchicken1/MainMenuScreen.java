@@ -24,6 +24,7 @@ public class MainMenuScreen implements Screen, InputProcessor {
 	public void render(float delta) {
 		SpriteBatch batch = new SpriteBatch();
 		batch.begin();
+            batch.draw(AssetLoader.cfc_splash_screen_bg, 0, 0, info.displayWidth, info.displayHeight);
 			batch.draw(AssetLoader.cfc_splash_screen, 0, 0, info.displayWidth, info.displayHeight);
 		batch.end();
 		

@@ -25,16 +25,29 @@ public class PlayGUI {
 	public void render(SpriteBatch batch, float screenLocationX, float screenLocationY)
 	{
 		batch.begin();
-			font.draw(batch, "SCORE: " + world.getScore(), screenLocationX + 50, screenLocationY + 250);
+            if(AssetLoader.USING_RT){
+                batch.draw(AssetLoader.rt_score, screenLocationX + 50, screenLocationY + 220);
+                font.draw(batch, ":"+world.getScore(),
+                        screenLocationX + 50 + AssetLoader.rt_score.getWidth(), 
+                        screenLocationY + 250);
+            } else {
+                font.draw(batch, AssetLoader.mainBundle.format("score", world.getScore()),
+                    screenLocationX + 50, screenLocationY + 250);
+            }
 			//batch.draw(AssetLoader.ceiling_lamp_on, screenLocationX, screenLocationY,200,200);
 			float sx = screenLocationX;
 			float sy = screenLocationY;
 			
 			if(time < 3 && AssetLoader.launcherType == "android"){
-				font.draw(batch, "Tap here to jump", 330 + sx, 260 + sy);
-				font.draw(batch, "Tap here to dive", 330 + sx, 60 + sy);
-				font.draw(batch, "Tap here to kick", 50 + sx, 150 + sy);
+				font.draw(batch, AssetLoader.mainBundle.get("tap_to_jump"), 330 + sx, 260 + sy);
+				font.draw(batch,  AssetLoader.mainBundle.get("tap_to_dive"), 330 + sx, 60 + sy);
+				font.draw(batch,  AssetLoader.mainBundle.get("tap_to_kick"), 50 + sx, 150 + sy);
 			}
+            if(time < 5){
+                font.draw(batch, AssetLoader.mainBundle.get("instruct_1"), 70 + sx, 70+ sy);
+                font.draw(batch, AssetLoader.mainBundle.get("instruct_2"), 70 + sx, 55 + sy);
+                font.draw(batch, AssetLoader.mainBundle.get("instruct_3"), 70 + sx, 40 + sy);
+            }
 		batch.end();
 	}
 	

@@ -228,9 +228,9 @@ public class PlayWorld implements IScorer, ControlActionListener {
 			{
 			case Input.Keys.SPACE: ACC.broadcastAction("jump"); break;
 			case Input.Keys.UP: ACC.broadcastAction("jump"); break;
-            case Input.Keys.W: ACC.broadcastAction("jump");
+            case Input.Keys.W: ACC.broadcastAction("jump"); break;
 			case Input.Keys.DOWN: ACC.broadcastAction("dive"); break;
-            case Input.Keys.S: ACC.broadcastAction("dive");
+            case Input.Keys.S: ACC.broadcastAction("dive"); break;
 			case Input.Keys.A: ACC.broadcastAction("kick"); break;
 			}
 		}
