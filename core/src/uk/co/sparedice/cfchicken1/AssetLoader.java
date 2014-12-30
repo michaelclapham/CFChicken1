@@ -60,14 +60,14 @@ public class AssetLoader {
 	{
         // Load localization bundle
         FileHandle baseFileHandle = Gdx.files.internal("i18n/MainBundle");
-        Locale locale = new Locale("pt", "PT");
+        Locale locale = new Locale("fr", "FR");
         mainBundle = I18NBundle.createBundle(baseFileHandle,locale);
         ld = mainBundle.get("localeDirectory");
         
         // Load pre-rendered text for scripts with massive alphabets
         if(mainBundle.get("usingRenderedText").equalsIgnoreCase("true")){
             USING_RT = true;
-            rt_score = intTex("i18n/zh/rt/score.png");
+            rt_score = intTex("i18n/"+ld+"/rt/score.png");
             rt_tapToKick = intTex("i18n/"+ld+"/rt/tap_to_kick.png");
             rt_tapToDive = intTex("i18n/"+ld+"/rt/tap_to_dive.png");
             rt_tapToJump = intTex("i18n/"+ld+"/rt/tap_to_jump.png");
