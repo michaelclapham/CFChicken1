@@ -38,15 +38,27 @@ public class PlayGUI {
 			float sx = screenLocationX;
 			float sy = screenLocationY;
 			
-			if(time < 3 && AssetLoader.launcherType == "android"){
-				font.draw(batch, AssetLoader.mainBundle.get("tap_to_jump"), 330 + sx, 260 + sy);
-				font.draw(batch,  AssetLoader.mainBundle.get("tap_to_dive"), 330 + sx, 60 + sy);
-				font.draw(batch,  AssetLoader.mainBundle.get("tap_to_kick"), 50 + sx, 150 + sy);
+			if(time < 4 && AssetLoader.launcherType.equals("android")){
+                if(AssetLoader.USING_RT){
+                    batch.draw(AssetLoader.rt_tapToJump, 320 + sx, 250 + sy);
+                    batch.draw(AssetLoader.rt_tapToDive, 320 + sx, 50 + sy);
+                    batch.draw(AssetLoader.rt_tapToKick, 40 + sx, 140 + sy);
+                } else {
+                    font.draw(batch, AssetLoader.mainBundle.get("tap_to_jump"), 330 + sx, 260 + sy);
+                    font.draw(batch,  AssetLoader.mainBundle.get("tap_to_dive"), 330 + sx, 60 + sy);
+                    font.draw(batch,  AssetLoader.mainBundle.get("tap_to_kick"), 50 + sx, 150 + sy);
+                }
+				
 			}
-            if(time < 5){
-                font.draw(batch, AssetLoader.mainBundle.get("instruct_1"), 70 + sx, 70+ sy);
-                font.draw(batch, AssetLoader.mainBundle.get("instruct_2"), 70 + sx, 55 + sy);
-                font.draw(batch, AssetLoader.mainBundle.get("instruct_3"), 70 + sx, 40 + sy);
+            if(time < 6){
+                if(AssetLoader.USING_RT){
+                    batch.draw(AssetLoader.rt_instructs, 8 + sx, sy + 8);
+                } else {
+                    font.draw(batch, AssetLoader.mainBundle.get("instruct_1"), 70 + sx, 70+ sy);
+                    font.draw(batch, AssetLoader.mainBundle.get("instruct_2"), 70 + sx, 55 + sy);
+                    font.draw(batch, AssetLoader.mainBundle.get("instruct_3"), 70 + sx, 40 + sy);
+                }
+                
             }
 		batch.end();
 	}

@@ -47,6 +47,7 @@ public class AssetLoader {
     public static Texture rt_tapToKick;
     public static Texture rt_tapToDive;
     public static Texture rt_tapToJump;
+    public static Texture rt_instructs;
     
     public static boolean USING_RT = false;
     
@@ -59,7 +60,7 @@ public class AssetLoader {
 	{
         // Load localization bundle
         FileHandle baseFileHandle = Gdx.files.internal("i18n/MainBundle");
-        Locale locale = new Locale("es", "ES", "VAR1");
+        Locale locale = new Locale("zh", "CN", "VAR1");
         mainBundle = I18NBundle.createBundle(baseFileHandle,locale);
         ld = mainBundle.get("localeDirectory");
         
@@ -70,6 +71,7 @@ public class AssetLoader {
             rt_tapToKick = intTex("i18n/"+ld+"/rt/tap_to_kick.png");
             rt_tapToDive = intTex("i18n/"+ld+"/rt/tap_to_dive.png");
             rt_tapToJump = intTex("i18n/"+ld+"/rt/tap_to_jump.png");
+            rt_instructs = intTex("i18n/"+ld+"/rt/instructions1.png");
         }
         
 		badlogicLogo = new Texture(Gdx.files.internal("badlogic.jpg"));
